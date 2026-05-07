@@ -30,6 +30,74 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan to-cyber-pink;
   }
+
+  .prose-cyber {
+    --tw-prose-body: #94a3b8;
+    --tw-prose-headings: #f8fafc;
+    --tw-prose-links: #00f2ff;
+    --tw-prose-bold: #f8fafc;
+    --tw-prose-counters: #00f2ff;
+    --tw-prose-bullets: #00f2ff;
+    --tw-prose-hr: rgba(255, 255, 255, 0.05);
+    --tw-prose-quotes: #f8fafc;
+    --tw-prose-quote-borders: #00f2ff;
+    --tw-prose-captions: #64748b;
+    --tw-prose-code: #00f2ff;
+    --tw-prose-pre-code: #e2e8f0;
+    --tw-prose-pre-bg: #0f172a;
+    --tw-prose-th-borders: #334155;
+    --tw-prose-td-borders: #1e293b;
+
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  .prose-cyber h1 {
+    @apply text-4xl md:text-5xl font-black uppercase tracking-tighter mb-20 text-white border-b-8 border-cyber-cyan pb-8 text-center mx-auto block w-fit;
+  }
+
+  .prose-cyber h2 {
+    @apply text-xl md:text-2xl font-black uppercase tracking-[0.2em] mt-24 mb-10 text-white border-b border-white/10 pb-4;
+  }
+
+  .prose-cyber h3 {
+    @apply text-lg font-bold mt-16 mb-8 text-cyber-cyan tracking-tight;
+  }
+
+  .prose-cyber p {
+    @apply mb-10 text-slate-400 leading-relaxed text-lg;
+  }
+
+  .prose-cyber ul, .prose-cyber ol {
+    @apply my-10 space-y-6 list-none pl-0;
+  }
+
+  .prose-cyber li {
+    @apply relative pl-12 py-2 text-slate-300 before:absolute before:left-0 before:top-2 before:w-8 before:h-8 before:bg-white/5 before:border before:border-white/10 before:rounded-lg before:flex before:items-center before:justify-center before:text-[10px] before:font-black before:text-cyber-cyan;
+  }
+
+  .prose-cyber ol li {
+    counter-increment: cyber-counter;
+  }
+  .prose-cyber ol li::before {
+    content: counter(cyber-counter);
+  }
+
+  .prose-cyber ul li::before {
+    content: "✓";
+  }
+
+  .prose-cyber strong {
+    @apply text-cyber-cyan font-bold tracking-tight;
+  }
+
+  .prose-cyber blockquote {
+    @apply my-12 p-8 bg-gradient-to-br from-cyber-cyan/10 to-transparent border-l-4 border-cyber-cyan rounded-r-2xl italic text-lg text-white shadow-[0_0_30px_rgba(0,242,255,0.05)];
+  }
+
+  .prose-cyber hr {
+    @apply my-16 border-t border-white/5;
+  }
 }
 
 @media print {

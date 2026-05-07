@@ -48,10 +48,230 @@ export const CATEGORIES: TopicCategory[] = [
   { id: 'linux', title: 'Linux Mastery', description: 'Command line, sysadmin, and security hardening.', icon: 'Terminal', color: 'cyber-pink' },
   { id: 'hacking', title: 'Ethical Hacking', description: 'Vulnerability assessment and pentesting.', icon: 'Shield', color: 'cyber-cyan' },
   { id: 'defense', title: 'Cyber Defense', description: 'Incident response, SOC, and threat hunting.', icon: 'Lock', color: 'cyber-pink' },
+  { id: 'os', title: 'Operating System', description: 'Concepts of OS, Kernel, Shell, and process management.', icon: 'Cpu', color: 'cyber-cyan' },
   { id: 'cyber-laws', title: 'Cyber Laws', description: 'Legal frameworks, regulations, and ethics in the digital world.', icon: 'Scale', color: 'cyber-cyan' },
 ];
 
 export const NOTE_TOPICS: NoteTopic[] = [
+  {
+    id: 'intro-to-os',
+    categoryId: 'os',
+    title: 'Introduction to OS',
+    description: 'Learn what an OS is, its primary functions, types, and the booting process.',
+    icon: 'Cpu',
+    tags: ['OS', 'Kernel', 'Shell', 'Booting', 'Linux'],
+    questions: [
+      {
+        question: 'What is an Operating System (OS)?',
+        options: ['A type of hardware', 'A bridge between the computer user and hardware', 'A program for browsing the internet', 'A high-speed internet cable'],
+        correctAnswer: 1,
+        explanation: 'An Operating System acts as an intermediary or bridge between the user and the computer hardware.'
+      },
+      {
+        question: 'Which of the following is considered hardware?',
+        options: ['Chrome browser', 'Windows 10', 'CPU, RAM, and Hard Drive', 'The Kernel'],
+        correctAnswer: 2,
+        explanation: 'Hardware refers to the physical parts of the computer such as CPU, RAM, and Hard Drive.'
+      },
+      {
+        question: 'The main goal of an OS is to provide an environment for users to:',
+        options: ['Delete their data', 'Execute programs conveniently and efficiently', 'Break the computer hardware', 'Buy more software'],
+        correctAnswer: 1,
+        explanation: 'The primary goal of an OS is to make the computer convenient and efficient to use.'
+      },
+      {
+        question: 'Memory Management in OS involves managing which type of memory?',
+        options: ['CPU cache', 'Hard drive storage', 'Primary Memory (RAM)', 'USB flash drives'],
+        correctAnswer: 2,
+        explanation: 'The OS specifically manages the Primary Memory, also known as RAM.'
+      },
+      {
+        question: 'What is "Process Scheduling"?',
+        options: ['Organizing files into folders', 'The OS deciding which process gets the CPU and for how long', 'Starting the computer', 'Scanning for viruses'],
+        correctAnswer: 1,
+        explanation: 'Process Scheduling is the task of managing which program uses the processor (CPU) and when.'
+      },
+      {
+        question: 'Which software is used by the OS to communicate with devices like printers?',
+        options: ['Application software', 'Shell', 'Drivers', 'Kernel'],
+        correctAnswer: 2,
+        explanation: 'Drivers are special programs that allow the OS to communicate with hardware peripherals.'
+      },
+      {
+        question: 'Which function handles creating, deleting, and searching for files?',
+        options: ['Memory Management', 'File Management', 'Device Management', 'Security'],
+        correctAnswer: 1,
+        explanation: 'File Management involves organizing and controlling access to data stored in files and directories.'
+      },
+      {
+        question: 'Which type of OS processes jobs in groups (batches)?',
+        options: ['Batch OS', 'Time-Sharing OS', 'Real-Time OS', 'Mobile OS'],
+        correctAnswer: 0,
+        explanation: 'In a Batch OS, jobs are prepared in groups and processed one by one without direct user interaction.'
+      },
+      {
+        question: 'Time-Sharing OS allows many users to share resources by:',
+        options: ['Using multiple CPUs', 'Switching the CPU between users very fast', 'Processing batches of data', 'Running only one program at a time'],
+        correctAnswer: 1,
+        explanation: 'Time-sharing allows multiple users to share a CPU by switching between them so quickly they feel they have the system to themselves.'
+      },
+      {
+        question: 'Where is a Real-Time OS (RTOS) most likely to be used?',
+        options: ['Personal laptops', 'Missile systems or medical imaging', 'Web servers', 'Smartphones'],
+        correctAnswer: 1,
+        explanation: 'RTOS is used in critical systems where a small delay could be fatal, like air traffic control or medical systems.'
+      },
+      {
+        question: 'What part of the OS is known as the "heart" and interacts directly with hardware?',
+        options: ['The Shell', 'The BIOS', 'The User', 'The Kernel'],
+        correctAnswer: 3,
+        explanation: 'The Kernel is the core program that interacts directly with computer hardware.'
+      },
+      {
+        question: 'What is the role of "The Shell"?',
+        options: ['Managing hardware', 'Acting as the heart of the OS', 'Providing an outer layer for user interaction', 'Loading the BIOS'],
+        correctAnswer: 2,
+        explanation: 'The Shell handles user commands and passes them to the Kernel for execution.'
+      },
+      {
+        question: 'Why is Linux considered "Open Source"?',
+        options: ['It can only be used by experts', 'Anyone can see and modify the code', 'It is made by a large corporation', 'It is only for hacking'],
+        correctAnswer: 1,
+        explanation: 'Open Source means the source code is public, allowing anyone to view, modify, and redistribute it.'
+      },
+      {
+        question: 'Which OS is noted for being difficult for viruses to infect compared to Windows?',
+        options: ['MS-DOS', 'Batch OS', 'Linux', 'Distributed OS'],
+        correctAnswer: 2,
+        explanation: 'Linux is widely praised for its robust security model and resistance to common viruses.'
+      },
+      {
+        question: 'What does "Booting" mean?',
+        options: ['Shutting down the computer', 'Managing files', 'The process of starting the computer', 'Connecting to the internet'],
+        correctAnswer: 2,
+        explanation: 'Booting is the startup sequence that begins when the computer is powered on.'
+      },
+      {
+        question: 'Which small program starts first when the power button is pressed?',
+        options: ['Google Chrome', 'BIOS or UEFI', 'The Shell', 'Microsoft Word'],
+        correctAnswer: 1,
+        explanation: 'BIOS (Basic Input/Output System) or UEFI is the first program that initializes when starting a PC.'
+      },
+      {
+        question: 'What is the primary task of BIOS/UEFI during booting?',
+        options: ['Formatting the hard drive', 'Checking if hardware like RAM and Keyboard are working', 'Downloading updates', 'Running games'],
+        correctAnswer: 1,
+        explanation: 'BIOS/UEFI performs a "POST" (Power-On Self-Test) to ensure critical hardware is functional.'
+      },
+      {
+        question: 'In the final step of booting, where is the OS Kernel loaded?',
+        options: ['Into the Hard Drive', 'Into the CPU', 'Into the RAM', 'Into the BIOS'],
+        correctAnswer: 2,
+        explanation: 'The BIOS loads the OS Kernel into the system memory (RAM) so the computer can start using the OS.'
+      },
+      {
+        question: 'Which of the following is an advantage of Linux?',
+        options: ['It is very expensive', 'It needs frequent restarts', 'Stability and Multi-tasking', 'It is closed source'],
+        correctAnswer: 2,
+        explanation: 'Linux is known for its stability (running for years without restart) and excellent multitasking capabilities.'
+      },
+      {
+        question: 'Who is the "Manager" that controls the computer hardware?',
+        options: ['Application software', 'The User', 'The Operating System', 'The Internet'],
+        correctAnswer: 2,
+        explanation: 'The OS acts as the manager of the computer system, controlling both hardware and software resources.'
+      }
+    ],
+    content: `
+---
+
+## 🚀 1. What is an Operating System?
+
+An **Operating System (OS)** is the most important software that runs on a computer. It acts as an **intermediary (a bridge)** between the computer user and the computer hardware.
+
+> **The Main Goal**: To provide an environment in which a user can execute programs in a convenient and efficient manner.
+
+### 🧩 Key Components of a Computer System:
+
+1. **Hardware**: The physical parts like the CPU, RAM, and Hard Drive.
+2. **Operating System**: The manager that controls the hardware.
+3. **Application Software**: Programs like Chrome, MS Word, or Games.
+4. **User**: The person using the computer.
+
+---
+
+## ⚙️ 2. Primary Functions of an OS
+
+The OS acts like a **"Government"** or **"Manager"** of the computer. Its main jobs include:
+
+### 🧠 A. Memory Management
+The OS manages the **Primary Memory (RAM)**.
+*   It keeps track of every memory location (whether it is free or used).
+*   It decides which process gets memory and how much.
+*   It "de-allocates" memory when a process no longer needs it.
+
+### ⚡ B. Processor (CPU) Management
+In a computer, many programs want to use the CPU at the same time.
+*   The OS decides which process gets the CPU and for how long. This is called **Process Scheduling**.
+
+### 🖱️ C. Device Management
+The OS communicates with all hardware devices (Printers, Keyboards, Mouse) using special programs called **Drivers**.
+*   It keeps track of all devices and decides which process can use a device and for how long.
+
+---
+
+## 📁 3. File & Security Management
+
+### 📂 File Management
+The OS organizes data into files and folders (directories).
+*   It handles creating, deleting, and searching for files.
+*   It controls who can access certain files (**Security**).
+
+### 🛡️ Security and Error Detection
+*   **Security**: Prevents unauthorized access to data using passwords and encryption.
+*   **Error Detection**: It constantly monitors the system to detect bugs or hardware failures.
+
+---
+
+## 📊 4. Types of Operating Systems
+
+Different computers need different types of OS:
+
+1. **Batch OS**: The user does not interact with the computer directly. Jobs are prepared in groups (batches) and processed one by one.
+2. **Time-Sharing OS**: Allows many users to share resources. The CPU switches between users so fast that each user feels they have the whole system to themselves.
+3. **Real-Time OS (RTOS)**: Used when time is very critical (e.g., missile systems, medical imaging, air traffic control). A small delay could be fatal.
+4. **Distributed OS**: Uses multiple processors to serve multiple users across a network.
+5. **Mobile OS**: Designed specifically for smartphones and tablets (e.g., Android, iOS).
+
+---
+
+## 🧱 5. Kernel and Shell (The Core)
+
+*   **The Kernel**: This is the heart of the OS. It interacts directly with the hardware. It is the first program loaded when the computer starts.
+*   **The Shell**: This is the outer layer that handles interaction with the user. It takes your commands and gives them to the Kernel.
+
+---
+
+## 🐧 6. Advantages of Linux OS
+
+Linux is highlighted as a powerful OS because:
+*   **Open Source**: Anyone can see the code and modify it. Usually free.
+*   **Security**: It is very difficult for viruses to infect Linux compared to Windows.
+*   **Stability**: Linux systems can run for years without needing a restart.
+*   **Multitasking**: It is excellent at running many heavy programs at once without slowing down.
+*   **Customization**: You can change almost anything in the look and feel of the system.
+
+---
+
+## 🔑 7. The Booting Process
+
+Booting is the process of starting the computer.
+
+1. **Start-up**: When you press the power button, a small program called **BIOS (Basic Input/Output System) or UEFI** starts.
+2. **Self-Check**: It checks if the hardware (RAM, Keyboard, etc.) is working.
+3. **Loading**: Then, it loads the **Operating System Kernel** into the RAM, and the computer is ready to use.
+`
+  },
   {
     id: 'networking-basics',
     categoryId: 'networking',

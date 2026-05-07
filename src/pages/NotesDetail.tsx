@@ -78,13 +78,18 @@ export const NotesDetail = () => {
             <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Back to Notes
           </Link>
 
-          <header className="mb-12">
-            <div className="flex flex-wrap items-center gap-4 mb-6 no-print">
-              <span className="px-3 py-1 rounded bg-cyber-pink/20 text-cyber-pink text-[10px] font-bold uppercase tracking-widest border border-cyber-pink/30">MODULE ACTIVE</span>
-              <span className="px-3 py-1 rounded bg-white/5 text-gray-400 text-[10px] font-bold uppercase tracking-widest border border-white/10">Est. Time: 45m</span>
+          <header className="mb-16">
+            <div className="flex flex-wrap items-center gap-4 mb-8 no-print">
+              <span className="px-4 py-1.5 rounded-full bg-cyber-pink/20 text-cyber-pink text-[10px] font-black uppercase tracking-[0.2em] border border-cyber-pink/30 shadow-[0_0_20px_rgba(255,0,193,0.1)]">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyber-pink animate-pulse mr-2" />
+                Module Active
+              </span>
+              <span className="px-4 py-1.5 rounded-full bg-white/5 text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] border border-white/10">Estimated Time: 45m</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 print:text-5xl print:mb-8">{topic.title}</h1>
-            <div className="flex items-center justify-between pb-8 border-b border-white/10 print:mb-12">
+            <h1 className="text-4xl md:text-6xl font-black mb-8 print:text-5xl print:mb-8 text-white uppercase tracking-tighter italic scale-y-110 origin-left">
+              {topic.title}
+            </h1>
+            <div className="flex items-center justify-between pb-8 border-b border-white/5 print:mb-12">
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <Info className="w-4 h-4" /> Last updated: Oct 2023
               </div>
