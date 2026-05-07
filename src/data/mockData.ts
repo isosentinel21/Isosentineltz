@@ -1,18 +1,10 @@
-export interface QuizQuestionSimple {
+export interface QuizQuestion {
+  id: string;
   question: string;
   options: string[];
   correctAnswer: number;
   explanation: string;
-}
-
-export interface NoteTopic {
-  id: string;
-  title: string;
-  description: string;
-  content: string;
-  icon: string;
-  tags?: string[];
-  questions?: QuizQuestionSimple[];
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
 export interface VideoTutorial {
@@ -25,18 +17,43 @@ export interface VideoTutorial {
   videoUrl: string;
 }
 
-export interface QuizQuestion {
-  id: string;
+export interface QuizQuestionSimple {
   question: string;
   options: string[];
   correctAnswer: number;
   explanation: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
 }
+
+export interface NoteTopic {
+  id: string;
+  categoryId: string;
+  title: string;
+  description: string;
+  content: string;
+  icon: string;
+  tags?: string[];
+  questions?: QuizQuestionSimple[];
+}
+
+export interface TopicCategory {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+
+export const CATEGORIES: TopicCategory[] = [
+  { id: 'networking', title: 'Networking Fundamentals', description: 'OSI Model, TCP/IP, and network security.', icon: 'Network', color: 'cyber-cyan' },
+  { id: 'linux', title: 'Linux Mastery', description: 'Command line, sysadmin, and security hardening.', icon: 'Terminal', color: 'cyber-pink' },
+  { id: 'hacking', title: 'Ethical Hacking', description: 'Vulnerability assessment and pentesting.', icon: 'Shield', color: 'cyber-cyan' },
+  { id: 'defense', title: 'Cyber Defense', description: 'Incident response, SOC, and threat hunting.', icon: 'Lock', color: 'cyber-pink' },
+];
 
 export const NOTE_TOPICS: NoteTopic[] = [
   {
     id: 'networking-basics',
+    categoryId: 'networking',
     title: 'Networking Basics',
     description: 'Master the fundamentals of computer networks, OSI models, and TCP/IP.',
     icon: 'Network',
@@ -100,7 +117,19 @@ ip addr show
 `
   },
   {
+    id: 'dns-security',
+    categoryId: 'networking',
+    title: 'DNS & Domain Security',
+    description: 'Understand how DNS works and how to secure it against redirection attacks.',
+    icon: 'Network',
+    tags: ['DNS', 'Security', 'Web'],
+    content: `# DNS Security
+DNS (Domain Name System) is the phonebook of the Internet.
+`
+  },
+  {
     id: 'linux-fundamentals',
+    categoryId: 'linux',
     title: 'Linux Fundamentals',
     description: 'Basic command line, file systems, and user management in Linux.',
     icon: 'Terminal',
@@ -159,7 +188,19 @@ chmod 700 secret_script.sh
 `
   },
   {
+    id: 'bash-scripting',
+    categoryId: 'linux',
+    title: 'Bash Scripting for Security',
+    description: 'Automate tasks and create security tools using Bash scripts.',
+    icon: 'Terminal',
+    tags: ['Bash', 'Automation', 'Scripting'],
+    content: `# Bash Scripting
+Automation is key in security operations.
+`
+  },
+  {
     id: 'ethical-hacking',
+    categoryId: 'hacking',
     title: 'Ethical Hacking',
     description: 'Learn the principles and methodology of professional penetration testing.',
     icon: 'Shield',

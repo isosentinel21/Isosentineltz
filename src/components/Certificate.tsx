@@ -27,20 +27,27 @@ export const Certificate = ({ userName, courseTitle, score, date, certificateId 
     try {
       setIsDownloading(true);
       
-      // Select the element to capture
-      const element = certificateRef.current;
+      // Small delay to ensure everything is rendered
+      await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Capture the element as a canvas
+      const element = certificateRef.current;
+      if (!element) return;
+
       const canvas = await html2canvas(element, {
-        scale: 2, // Higher scale for better quality
+        scale: 2,
         useCORS: true,
-        backgroundColor: '#0a0a0b', // Match bg-cyber-bg
+        allowTaint: true,
+        backgroundColor: '#030712',
         logging: false,
+        // Remove the onclone for now as it might be causing the gBCR error
       });
       
-      const imgData = canvas.toDataURL('image/png');
+      if (!canvas) {
+        throw new Error('Canvas not generated');
+      }
+
+      const imgData = canvas.toDataURL('image/png', 1.0);
       
-      // Create a PDF with landscape orientation
       const pdf = new jsPDF({
         orientation: 'landscape',
         unit: 'px',
@@ -48,18 +55,18 @@ export const Certificate = ({ userName, courseTitle, score, date, certificateId 
       });
       
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-      pdf.save(`Certificate-${courseTitle.replace(/\s+/g, '-')}-${userName.replace(/\s+/g, '-')}.pdf`);
+      pdf.save(`ISOSENTINEL-Certificate-${userName.replace(/\s+/g, '-')}.pdf`);
       
     } catch (error) {
-      console.error('Error generating PDF:', error);
-      alert('Failed to generate PDF. Please try the Print option instead.');
+      console.error('PDF Generation Error:', error);
+      alert('PDF generation failed. Please use the Print option instead.');
     } finally {
       setIsDownloading(false);
     }
   };
 
   return (
-    <div className="mt-12 group pb-20">
+    <div className="mt-12 group pb-20 certificate-container">
       <div 
         ref={certificateRef}
         style={{ 

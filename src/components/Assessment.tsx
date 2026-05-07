@@ -4,6 +4,8 @@ import { Brain, CheckCircle2, XCircle, ChevronRight, ChevronLeft, RefreshCcw, Tr
 import { QuizQuestionSimple } from '@/src/data/mockData';
 import { cn } from '@/src/lib/utils';
 import { Certificate } from './Certificate';
+import { markQuizPassed, markCertificateEarned } from '@/src/lib/progress';
+import { useContent } from '@/src/context/ContentContext';
 
 interface AssessmentProps {
   topicTitle: string;
@@ -19,6 +21,10 @@ export const Assessment = ({ topicTitle, questions }: AssessmentProps) => {
   const [userName, setUserName] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
 
+  const { lessons } = useContent();
+  // Find the note ID for progress tracking
+  const noteId = lessons.find(t => t.title === topicTitle)?.id || '';
+
   const handleOptionSelect = (optionIndex: number) => {
     const newAnswers = [...answers];
     newAnswers[currentStep] = optionIndex;
@@ -33,6 +39,16 @@ export const Assessment = ({ topicTitle, questions }: AssessmentProps) => {
     const finalScore = Math.round((correctCount / questions.length) * 100);
     setScore(finalScore);
     setIsSubmitted(true);
+    
+    if (finalScore >= 70 && noteId) {
+      markQuizPassed(noteId);
+    }
+  };
+
+  const handleGenerateCertificate = () => {
+    setShowCertificate(true);
+    const certificateId = `CERT-CS-2026-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+    markCertificateEarned(certificateId);
   };
 
   const resetQuiz = () => {
@@ -136,7 +152,7 @@ export const Assessment = ({ topicTitle, questions }: AssessmentProps) => {
                   <div className="absolute inset-0 border border-cyber-cyan/20 rounded-xl pointer-events-none opacity-0 group-focus-within:opacity-100 transition-opacity" />
                 </div>
                 <button 
-                  onClick={() => setShowCertificate(true)}
+                  onClick={handleGenerateCertificate}
                   disabled={!userName.trim()}
                   className="w-full py-5 bg-cyber-cyan text-cyber-bg font-black rounded-xl hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] disabled:opacity-20 disabled:grayscale transition-all flex items-center justify-center gap-3 uppercase tracking-tighter"
                 >

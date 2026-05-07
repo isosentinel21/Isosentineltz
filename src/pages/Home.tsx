@@ -1,26 +1,20 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Terminal, Shield, Cpu, Lock, ArrowRight, Zap, Globe, Users, Trophy } from 'lucide-react';
+import { Terminal, Shield, Cpu, Lock, ArrowRight, Zap, Globe, Users, Trophy, BookOpen, CheckCircle2, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
-
-const CATEGORIES = [
-  { title: 'Networking Basics', icon: Globe, count: '12 Lessons', color: 'from-blue-500/20 to-cyan-500/20' },
-  { title: 'Linux Fundamentals', icon: Terminal, count: '08 Lessons', color: 'from-emerald-500/20 to-teal-500/20' },
-  { title: 'Ethical Hacking', icon: Shield, count: '24 Lessons', color: 'from-red-500/20 to-orange-500/20' },
-  { title: 'Web Security', icon: Lock, count: '15 Lessons', color: 'from-purple-500/20 to-pink-500/20' },
-  { title: 'Digital Forensics', icon: Cpu, count: '10 Lessons', color: 'from-indigo-500/20 to-blue-500/20' },
-  { title: 'OSINT', icon: Zap, count: '05 Lessons', color: 'from-yellow-500/20 to-amber-500/20' },
-];
-
-const STATS = [
-  { label: 'Learners', value: '15.4K+', icon: Users },
-  { label: 'Countries', value: '82', icon: Globe },
-  { label: 'Certifications', value: '4.2K', icon: Trophy },
-  { label: 'Cyber Labs', value: '120+', icon: Cpu },
-];
+import { useContent } from '../context/ContentContext';
+import { useProgress } from '../lib/progress';
 
 export const Home = () => {
+  const { topics, lessons } = useContent();
+  const progress = useProgress();
+
+  const stats = [
+    { label: 'Notes Read', value: progress.completedNotes.length, total: lessons.length, icon: BookOpen },
+    { label: 'Quizzes Passed', value: progress.passedQuizzes.length, total: lessons.filter(l => l.questions && l.questions.length > 0).length, icon: CheckCircle2 },
+    { label: 'Certificates', value: progress.certificatesEarned.length, total: progress.certificatesEarned.length, icon: Award }
+  ];
   return (
     <div className="pt-20">
       {/* Hero Section */}
@@ -84,7 +78,7 @@ export const Home = () => {
       <section className="border-y border-white/5 bg-white/[0.02]">
         <div className="container mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {STATS.map((stat, i) => (
+            {stats.map((stat, i) => (
               <motion.div 
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -95,10 +89,22 @@ export const Home = () => {
                 <div className="inline-flex p-3 rounded-xl bg-white/5 mb-4">
                   <stat.icon className="w-6 h-6 text-cyber-cyan" />
                 </div>
-                <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                <div className="text-3xl font-bold text-white mb-1">{stat.value}{stat.total ? <span className="text-sm text-gray-600">/{stat.total}</span> : ''}</div>
                 <div className="text-gray-500 text-xs font-mono uppercase tracking-widest">{stat.label}</div>
               </motion.div>
             ))}
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="inline-flex p-3 rounded-xl bg-white/5 mb-4">
+                  <Globe className="w-6 h-6 text-cyber-cyan" />
+                </div>
+                <div className="text-3xl font-bold text-white mb-1">82</div>
+                <div className="text-gray-500 text-xs font-mono uppercase tracking-widest">Countries</div>
+              </motion.div>
           </div>
         </div>
       </section>
@@ -116,22 +122,22 @@ export const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CATEGORIES.map((cat, i) => (
+          {topics.map((cat, i) => (
             <motion.div
-              key={i}
+              key={cat.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="group p-8 rounded-2xl glass border-white/10 hover:border-cyber-cyan/50 hover:bg-white/10 transition-all duration-300 relative overflow-hidden"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+              <div className="absolute inset-0 bg-cyber-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative z-10">
                 <div className="p-3 rounded-xl bg-white/5 inline-flex mb-6 group-hover:scale-110 group-hover:text-cyber-cyan transition-all">
-                  <cat.icon className="w-8 h-8" />
+                  <Shield className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{cat.title}</h3>
-                <p className="text-gray-400 text-sm mb-6">{cat.count} available</p>
+                <p className="text-gray-400 text-sm mb-6">{cat.description}</p>
                 <Link to="/notes" className="flex items-center gap-2 text-xs font-bold tracking-widest text-cyber-cyan opacity-0 group-hover:opacity-100 transition-all">
                   EXPLORE <ArrowRight className="w-3 h-3" />
                 </Link>

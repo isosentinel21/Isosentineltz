@@ -5,15 +5,17 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Download, Share2, Printer, Info, Check, Copy, Facebook, Send, MessageCircle } from 'lucide-react';
-import { NOTE_TOPICS } from '@/src/data/mockData';
 import { cn } from '@/src/lib/utils';
 import { triggerCyberCelebration } from '@/src/lib/celebration';
+import { markNoteComplete } from '@/src/lib/progress';
+import { useContent } from '@/src/context/ContentContext';
 
 import { Assessment } from '@/src/components/Assessment';
 
 export const NotesDetail = () => {
   const { id } = useParams();
-  const topic = NOTE_TOPICS.find(t => t.id === id);
+  const { lessons } = useContent();
+  const topic = lessons.find(t => t.id === id);
   const [showShare, setShowShare] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -22,6 +24,7 @@ export const NotesDetail = () => {
     let cleanup: (() => void) | undefined;
     if (topic) {
       cleanup = triggerCyberCelebration();
+      markNoteComplete(topic.id);
     }
     return () => cleanup?.();
   }, [topic]);
