@@ -4,6 +4,7 @@ import { Network, Terminal, Shield, Lock, Search, ArrowRight, FileQuestion } fro
 import { Link } from 'react-router-dom';
 import { NOTE_TOPICS } from '@/src/data/mockData';
 import { cn } from '@/src/lib/utils';
+import { UserProgress } from '@/src/components/UserProgress';
 
 const ICONS = {
   Network: Network,
@@ -35,6 +36,8 @@ export const Notes = () => {
           to advanced penetration testing, we cover everything you need to know.
         </p>
       </div>
+
+      <UserProgress />
 
       <div className="relative mb-12 group">
         <Search className={cn(

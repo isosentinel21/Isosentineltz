@@ -23,6 +23,8 @@ export const triggerCyberCelebration = () => {
     const colors = ['#FFB7C5', '#FFD1DC', '#FFFFFF', '#00f2ff', '#B0E0E6'];
 
     try {
+      if (typeof confetti !== 'function') return;
+      
       confetti({
         ...defaults,
         particleCount,
@@ -44,11 +46,13 @@ export const triggerCyberCelebration = () => {
         gravity: randomInRange(0.6, 0.8),
       });
     } catch (err) {
-      // Just catch potential canvas errors gracefully
+      console.warn('Confetti step failed', err);
     }
   }, 250);
 
-  return () => clearInterval(interval);
+  return () => {
+    if (interval) clearInterval(interval);
+  };
 };
 
 export const triggerWelcomeConfetti = () => {
@@ -61,15 +65,17 @@ export const triggerWelcomeConfetti = () => {
 
   function fire(particleRatio: number, opts: any) {
     try {
-      confetti({
-        ...defaults,
-        ...opts,
-        particleCount: Math.floor(count * particleRatio),
-        shapes: ['circle'],
-        scalar: 0.7,
-      });
+      if (typeof confetti === 'function') {
+        confetti({
+          ...defaults,
+          ...opts,
+          particleCount: Math.floor(count * particleRatio),
+          shapes: ['circle'],
+          scalar: 0.7,
+        });
+      }
     } catch (err) {
-      // Catch potential canvas errors gracefully
+      console.warn('Welcome confetti failed', err);
     }
   }
 

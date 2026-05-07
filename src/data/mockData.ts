@@ -1,3 +1,10 @@
+export interface QuizQuestionSimple {
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+}
+
 export interface NoteTopic {
   id: string;
   title: string;
@@ -5,6 +12,7 @@ export interface NoteTopic {
   content: string;
   icon: string;
   tags?: string[];
+  questions?: QuizQuestionSimple[];
 }
 
 export interface VideoTutorial {
@@ -33,6 +41,44 @@ export const NOTE_TOPICS: NoteTopic[] = [
     description: 'Master the fundamentals of computer networks, OSI models, and TCP/IP.',
     icon: 'Network',
     tags: ['CyberSecurity', 'Networking', 'TCP/IP', 'OSI Model'],
+    questions: [
+      {
+        question: 'Which OSI layer is responsible for logical addressing (IP)?',
+        options: ['Physical Layer', 'Data Link Layer', 'Network Layer', 'Transport Layer'],
+        correctAnswer: 2,
+        explanation: 'The Network Layer handles logical addressing and routing.'
+      },
+      {
+        question: 'What does TCP stand for?',
+        options: ['Terminal Control Protocol', 'Transmission Control Protocol', 'Technical Communication Protocol', 'Total Computer Protection'],
+        correctAnswer: 1,
+        explanation: 'TCP stands for Transmission Control Protocol, a core protocol of the Internet Protocol Suite.'
+      },
+      {
+        question: 'Which protocol is used for secure web browsing?',
+        options: ['HTTP', 'FTP', 'HTTPS', 'SSH'],
+        correctAnswer: 2,
+        explanation: 'HTTPS (Hypertext Transfer Protocol Secure) encrypts communication between the browser and server.'
+      },
+      {
+        question: 'What is the purpose of the Address Resolution Protocol (ARP)?',
+        options: ['Map IP addresses to MAC addresses', 'Route packets between networks', 'Assign dynamic IP addresses', 'Encrypt network traffic'],
+        correctAnswer: 0,
+        explanation: 'ARP is used to resolve a known IP address to a hardware MAC address on a local area network.'
+      },
+      {
+        question: 'Which device operates primarily at Layer 2 of the OSI model?',
+        options: ['Router', 'Hub', 'Switch', 'Firewall'],
+        correctAnswer: 2,
+        explanation: 'Network switches operate at the Data Link Layer (Layer 2) using MAC addresses.'
+      },
+      {
+        question: 'What is the default port for the SSH protocol?',
+        options: ['21', '22', '23', '80'],
+        correctAnswer: 1,
+        explanation: 'Secure Shell (SSH) uses TCP port 22 by default.'
+      }
+    ],
     content: `# Networking Fundamentals
     
 Computer networking is the practice of connecting computers together to share resources.
@@ -59,6 +105,44 @@ ip addr show
     description: 'Basic command line, file systems, and user management in Linux.',
     icon: 'Terminal',
     tags: ['Linux', 'Terminal', 'SysAdmin', 'Bash'],
+    questions: [
+      {
+        question: 'Which command is used to list files in a directory?',
+        options: ['cd', 'ls', 'pwd', 'cat'],
+        correctAnswer: 1,
+        explanation: "The 'ls' command stands for list and is used to display directory contents."
+      },
+      {
+        question: 'How do you change file permissions in Linux?',
+        options: ['chperm', 'chmod', 'chown', 'setperm'],
+        correctAnswer: 1,
+        explanation: 'The chmod (Change Mode) command is used to set file and directory permissions.'
+      },
+      {
+        question: 'What does the "cd" command do?',
+        options: ['Copy Directory', 'Create Directory', 'Change Directory', 'Clear Data'],
+        correctAnswer: 2,
+        explanation: 'The cd command is used to change the current working directory in the terminal.'
+      },
+      {
+        question: 'Which symbol represents the root directory in Linux?',
+        options: ['~', '/', '.', '..'],
+        correctAnswer: 1,
+        explanation: 'The forward slash (/) represents the root directory, the top-most level of the file system.'
+      },
+      {
+        question: 'Which command tells you which user you are currently logged in as?',
+        options: ['who', 'user', 'whoami', 'id'],
+        correctAnswer: 2,
+        explanation: 'The whoami command prints the effective username of the current user.'
+      },
+      {
+        question: 'What is the command to create a new directory?',
+        options: ['mkdir', 'newdir', 'create', 'dir'],
+        correctAnswer: 0,
+        explanation: 'mkdir (Make Directory) is used to create new folders or directories.'
+      }
+    ],
     content: `# Linux Basics
 Linux is the backbone of cybersecurity tools.
 
@@ -80,6 +164,44 @@ chmod 700 secret_script.sh
     description: 'Learn the principles and methodology of professional penetration testing.',
     icon: 'Shield',
     tags: ['EthicalHacking', 'Pentesting', 'SecOps', 'VulnerabilityAnalysis'],
+    questions: [
+      {
+        question: 'What is the first step in the Ethical Hacking methodology?',
+        options: ['Scanning', 'Gaining Access', 'Reconnaissance', 'Maintaining Access'],
+        correctAnswer: 2,
+        explanation: 'Reconnaissance (Information Gathering) is the crucial first step to understand the target.'
+      },
+      {
+        question: 'What is a "White Hat" hacker?',
+        options: ['A malicious attacker', 'An ethical security professional', 'A hacker who works for the government', 'A hacker who only steals for fun'],
+        correctAnswer: 1,
+        explanation: 'White Hat hackers are authorized security professionals who help organizations find and fix vulnerabilities.'
+      },
+      {
+        question: 'Which tool is primarily used for packet analysis?',
+        options: ['Nmap', 'Burp Suite', 'Wireshark', 'Metasploit'],
+        correctAnswer: 2,
+        explanation: 'Wireshark is a powerful network protocol analyzer used to capture and inspect packets.'
+      },
+      {
+        question: 'What is "Phishing"?',
+        options: ['A physical security breach', 'A type of social engineering attack', 'A network sniffing technique', 'A password cracking method'],
+        correctAnswer: 1,
+        explanation: 'Phishing is a social engineering attack where attackers deceive people into revealing sensitive information.'
+      },
+      {
+        question: 'What does "DDoS" stand for?',
+        options: ['Direct Denial of Service', 'Distributed Denial of Service', 'Data Delivery of Service', 'Distributed Data of Service'],
+        correctAnswer: 1,
+        explanation: 'DDoS stands for Distributed Denial of Service, where multiple compromised systems attack a target.'
+      },
+      {
+        question: 'Which of the following is a vulnerability scanner?',
+        options: ['Nmap', 'Nessus', 'Wireshark', 'Putty'],
+        correctAnswer: 1,
+        explanation: 'Nessus is a widely used vulnerability scanner that helps identify security weaknesses.'
+      }
+    ],
     content: `# Ethical Hacking 101
 The methodology follows these steps:
 1. Reconnaissance

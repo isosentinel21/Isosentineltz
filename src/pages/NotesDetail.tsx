@@ -9,6 +9,8 @@ import { NOTE_TOPICS } from '@/src/data/mockData';
 import { cn } from '@/src/lib/utils';
 import { triggerCyberCelebration } from '@/src/lib/celebration';
 
+import { Assessment } from '@/src/components/Assessment';
+
 export const NotesDetail = () => {
   const { id } = useParams();
   const topic = NOTE_TOPICS.find(t => t.id === id);
@@ -136,6 +138,14 @@ export const NotesDetail = () => {
           <article className="prose prose-invert prose-cyber max-w-none mb-12 prose-pre:bg-cyber-card prose-pre:border prose-pre:border-white/10">
             <ReactMarkdown>{topic.content}</ReactMarkdown>
           </article>
+
+          {/* Knowledge Assessment Section */}
+          {topic.questions && (
+            <Assessment 
+              topicTitle={topic.title} 
+              questions={topic.questions} 
+            />
+          )}
 
           {/* Tags Section */}
           <div className="mb-20">
