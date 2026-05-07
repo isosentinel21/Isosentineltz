@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Shield, Brain, Trophy, ChevronRight, CheckCircle2, XCircle, Info, Timer } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { QUIZ_QUESTIONS } from '@/src/data/mockData';
 
 export const Quizzes = () => {

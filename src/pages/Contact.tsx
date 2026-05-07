@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Mail, Phone, MessageSquare, MapPin, Send, MessageCircle, Github, Twitter, Linkedin } from 'lucide-react';
+import { Mail, Phone, MessageSquare, MapPin, Send, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { cn } from '@/src/lib/utils';
 
 export const Contact = () => {
   return (
@@ -17,16 +18,21 @@ export const Contact = () => {
         {/* Contact Info */}
         <div className="lg:col-span-5 space-y-8">
           {[
-            { icon: Mail, label: 'Email Address', value: 'contact@isosentinel.com', color: 'text-cyber-cyan' },
-            { icon: MessageCircle, label: 'WhatsApp', value: '+255 712 345 678', color: 'text-emerald-400' },
-            { icon: MapPin, label: 'Headquarters', value: 'Cyber Tower, Dar es Salaam, TZ', color: 'text-cyber-pink' },
+            { icon: MessageCircle, label: 'WhatsApp', value: '+255 626 425 950', color: 'text-[#25D366]', link: 'https://wa.me/255626425950' },
+            { icon: MapPin, label: 'Headquarters', value: 'Arusha, Tanzania', color: 'text-cyber-pink' },
           ].map((item, i) => (
-            <motion.div 
+            <motion.a 
               key={i}
+              href={(item as any).link}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="flex items-start gap-6 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all"
+              className={cn(
+                "flex items-start gap-6 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all",
+                (item as any).link && "cursor-pointer hover:bg-white/[0.05]"
+              )}
             >
               <div className={`p-4 rounded-xl bg-white/5 ${item.color}`}>
                 <item.icon className="w-6 h-6" />
@@ -35,16 +41,29 @@ export const Contact = () => {
                 <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">{item.label}</div>
                 <div className="text-lg font-bold text-white">{item.value}</div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
 
           <div className="pt-8">
-             <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-6">Follow the trail</h4>
+             <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-6">Social Networks</h4>
              <div className="flex gap-4">
-                {[Github, Twitter, Linkedin].map((Icon, i) => (
-                  <button key={i} className="w-12 h-12 rounded-xl flex items-center justify-center glass border-white/10 hover:border-cyber-cyan hover:text-cyber-cyan transition-all">
-                    <Icon className="w-6 h-6" />
-                  </button>
+                {[
+                  { icon: MessageCircle, url: 'https://wa.me/255626425950', color: 'hover:text-[#25D366] hover:border-[#25D366] text-[#25D366]/70' },
+                  { icon: Instagram, url: 'https://www.instagram.com/deogratius_malingula?igsh=YmZ5MmFlaHdwOW1m', color: 'hover:text-[#E4405F] hover:border-[#E4405F] text-[#E4405F]/70' },
+                  { icon: Facebook, url: 'https://www.facebook.com/share/14fbsZXc6i1/', color: 'hover:text-[#1877F2] hover:border-[#1877F2] text-[#1877F2]/70' },
+                ].map((social, i) => (
+                  <a 
+                    key={i} 
+                    href={social.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "w-12 h-12 rounded-xl flex items-center justify-center glass border-white/10 transition-all",
+                      social.color
+                    )}
+                  >
+                    <social.icon className="w-6 h-6" />
+                  </a>
                 ))}
              </div>
           </div>

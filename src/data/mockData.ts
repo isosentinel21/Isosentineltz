@@ -4,6 +4,7 @@ export interface NoteTopic {
   description: string;
   content: string;
   icon: string;
+  tags?: string[];
 }
 
 export interface VideoTutorial {
@@ -31,6 +32,7 @@ export const NOTE_TOPICS: NoteTopic[] = [
     title: 'Networking Basics',
     description: 'Master the fundamentals of computer networks, OSI models, and TCP/IP.',
     icon: 'Network',
+    tags: ['CyberSecurity', 'Networking', 'TCP/IP', 'OSI Model'],
     content: `# Networking Fundamentals
     
 Computer networking is the practice of connecting computers together to share resources.
@@ -56,6 +58,7 @@ ip addr show
     title: 'Linux Fundamentals',
     description: 'Basic command line, file systems, and user management in Linux.',
     icon: 'Terminal',
+    tags: ['Linux', 'Terminal', 'SysAdmin', 'Bash'],
     content: `# Linux Basics
 Linux is the backbone of cybersecurity tools.
 
@@ -76,6 +79,7 @@ chmod 700 secret_script.sh
     title: 'Ethical Hacking',
     description: 'Learn the principles and methodology of professional penetration testing.',
     icon: 'Shield',
+    tags: ['EthicalHacking', 'Pentesting', 'SecOps', 'VulnerabilityAnalysis'],
     content: `# Ethical Hacking 101
 The methodology follows these steps:
 1. Reconnaissance

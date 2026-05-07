@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CyberGrid } from './components/CyberGrid';
+import { Marquee } from './components/Marquee';
 import { Home } from './pages/Home';
 import { Notes } from './pages/Notes';
 import { NotesDetail } from './pages/NotesDetail';
@@ -11,6 +12,7 @@ import { Videos } from './pages/Videos';
 import { Quizzes } from './pages/Quizzes';
 import { Contact } from './pages/Contact';
 import { Admin } from './pages/Admin';
+import { triggerWelcomeConfetti } from './lib/celebration';
 
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -31,11 +33,22 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default function App() {
+  useEffect(() => {
+    // Small delay to ensure styles are loaded and visual impact is better
+    const timer = setTimeout(() => {
+      triggerWelcomeConfetti();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Router>
       <div className="min-h-screen bg-cyber-bg text-gray-100 selection:bg-cyber-cyan selection:text-cyber-bg flex flex-col">
         <CyberGrid />
         <Navbar />
+        <div className="pt-20">
+          <Marquee />
+        </div>
         <PageTransition>
           <div className="flex-grow">
             <Routes>
