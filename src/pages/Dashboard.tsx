@@ -1,14 +1,16 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { BookOpen, CheckCircle2, Award, Trophy, Clock, Shield, ArrowRight, Zap, Target } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { BookOpen, CheckCircle2, Award, Trophy, Clock, Shield, ArrowRight, Zap, Target, X, Eye } from 'lucide-react';
 import { useProgress } from '../lib/progress';
 import { useContent } from '../context/ContentContext';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import { Certificate } from '../components/Certificate';
 
 export const Dashboard = () => {
   const { userId, ...progress } = useProgress();
   const { lessons, topics } = useContent();
+  const [selectedCert, setSelectedCert] = useState<any | null>(null);
 
   const stats = [
     { 
@@ -148,15 +150,23 @@ export const Dashboard = () => {
                  ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        {progress.certificatesEarned.map((cert) => (
-                          <div key={cert.id} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyber-cyan/30 transition-all">
-                             <div className="flex justify-between items-start mb-4">
-                                <div className="p-2 rounded-lg bg-cyber-cyan/10 text-cyber-cyan">
-                                   <Award className="w-5 h-5" />
+                          <div key={cert.id} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyber-cyan/30 transition-all flex flex-col justify-between">
+                             <div>
+                                <div className="flex justify-between items-start mb-4">
+                                   <div className="p-2 rounded-lg bg-cyber-cyan/10 text-cyber-cyan">
+                                      <Award className="w-5 h-5" />
+                                   </div>
+                                   <span className="text-[8px] font-mono text-gray-600 bg-white/5 px-2 py-1 rounded">ID: {cert.certificateId}</span>
                                 </div>
-                                <span className="text-[8px] font-mono text-gray-600 bg-white/5 px-2 py-1 rounded">ID: {cert.certificateId}</span>
+                                <div className="font-bold text-sm mb-1">{cert.topicTitle}</div>
+                                <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-6">Score: {cert.score}% • {new Date(cert.dateIssued).toLocaleDateString()}</div>
                              </div>
-                             <div className="font-bold text-sm mb-1">{cert.topicTitle}</div>
-                             <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-4">Score: {cert.score}% • {new Date(cert.dateIssued).toLocaleDateString()}</div>
+                             <button 
+                                onClick={() => setSelectedCert(cert)}
+                                className="w-full py-2 bg-cyber-cyan/10 border border-cyber-cyan/20 text-cyber-cyan text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg hover:bg-cyber-cyan hover:text-cyber-bg transition-all flex items-center justify-center gap-2"
+                             >
+                                <Eye className="w-3 h-3" /> VIEW CREDENTIAL
+                             </button>
                           </div>
                        ))}
                     </div>
@@ -231,6 +241,46 @@ export const Dashboard = () => {
            </div>
         </div>
       </div>
+
+      {/* Certificate Modal */}
+      <AnimatePresence>
+        {selectedCert && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-cyber-bg/95 backdrop-blur-xl p-4 md:p-8"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="w-full max-w-6xl max-h-[90vh] overflow-y-auto custom-scrollbar relative"
+            >
+              <button 
+                onClick={() => setSelectedCert(null)}
+                className="absolute top-4 right-4 z-[110] p-2 bg-white/5 border border-white/10 rounded-full text-gray-400 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="py-12">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Verified Achievement</h2>
+                  <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mt-1">ISO-SENTINEL DEPLOYMENT CREDENTIAL</p>
+                </div>
+                <Certificate 
+                  userName={selectedCert.userName}
+                  courseTitle={selectedCert.topicTitle}
+                  score={selectedCert.score}
+                  date={new Date(selectedCert.dateIssued).toLocaleDateString()}
+                  certificateId={selectedCert.certificateId}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

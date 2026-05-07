@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Shield, Download, Printer, Share2, Award, CheckCircle2, Loader2 } from 'lucide-react';
+import { Shield, Download, Printer, Award, Loader2, CheckCircle, Fingerprint, Globe, ShieldCheck } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
@@ -27,155 +27,225 @@ export const Certificate = ({ userName, courseTitle, score, date, certificateId 
     try {
       setIsDownloading(true);
       
-      // Small delay to ensure everything is rendered
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Ensure the component is fully rendered
+      await new Promise(resolve => setTimeout(resolve, 800));
       
       const element = certificateRef.current;
-      if (!element) return;
-
+      
       const canvas = await html2canvas(element, {
-        scale: 2,
+        scale: 3, // Higher scale for premium quality
         useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#030712',
+        allowTaint: false,
+        backgroundColor: '#020617',
         logging: false,
-        // Remove the onclone for now as it might be causing the gBCR error
+        imageTimeout: 0,
       });
       
-      if (!canvas) {
-        throw new Error('Canvas not generated');
-      }
-
       const imgData = canvas.toDataURL('image/png', 1.0);
+      
+      // Calculate aspect ratio
+      const imgWidth = 297; // A4 Landscape width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
       const pdf = new jsPDF({
         orientation: 'landscape',
-        unit: 'px',
-        format: [canvas.width, canvas.height]
+        unit: 'mm',
+        format: 'a4'
       });
       
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-      pdf.save(`ISOSENTINEL-Certificate-${userName.replace(/\s+/g, '-')}.pdf`);
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save(`ISO-SENTINEL-CERT-${certificateId}.pdf`);
       
     } catch (error) {
       console.error('PDF Generation Error:', error);
-      alert('PDF generation failed. Please use the Print option instead.');
+      alert('Certificate generation encountered a protocol error. Try using the Print option.');
     } finally {
       setIsDownloading(false);
     }
   };
 
   return (
-    <div className="mt-12 group pb-20 certificate-container">
-      <div 
-        ref={certificateRef}
-        style={{ 
-          backgroundColor: '#030712', 
-          borderColor: '#0f172a',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-        }}
-        className="relative aspect-[1.414/1] w-full max-w-4xl mx-auto border-[12px] p-12 overflow-hidden"
+    <div className="mt-12 group pb-24 certificate-wrapper flex flex-col items-center">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        className="w-full max-w-5xl"
       >
-        {/* Background Decorative Elements */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full" style={{ background: 'radial-gradient(circle at center, rgba(0, 242, 255, 0.2), transparent, transparent)' }} />
-          <div className="grid grid-cols-12 h-full w-full">
-             {[...Array(144)].map((_, i) => (
-               <div key={i} style={{ borderColor: 'rgba(255, 255, 255, 0.05)' }} className="border-[0.5px]" />
-             ))}
+        <div 
+          ref={certificateRef}
+          className="relative aspect-[1.414/1] w-full bg-[#020617] text-white overflow-hidden shadow-2xl border-[16px] border-[#0f172a]"
+          style={{ 
+            fontFamily: "'Inter', sans-serif",
+            backgroundImage: 'radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%)'
+          }}
+        >
+          {/* Border Accents - Geometric & Techy */}
+          <div className="absolute top-0 right-0 w-64 h-64 border-t-4 border-r-4 border-cyber-cyan/30 mt-[-2px] mr-[-2px]" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 border-b-4 border-l-4 border-cyber-cyan/30 mb-[-2px] ml-[-2px]" />
+          
+          {/* Watermark/Background Pattern */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none select-none flex items-center justify-center">
+            <Shield className="w-1/2 h-1/2" />
           </div>
-        </div>
+          
+          {/* Main Decorative Frame */}
+          <div className="absolute inset-8 border border-cyber-cyan/20 pointer-events-none" />
+          <div className="absolute inset-10 border-2 border-white/5 pointer-events-none" />
 
-        {/* Certificate Content */}
-        <div className="relative h-full flex flex-col items-center justify-between border-2 p-8" style={{ borderColor: 'rgba(0, 242, 255, 0.3)' }}>
-          {/* Header */}
-          <div className="text-center">
-            <div className="flex justify-center mb-4">
-              <div className="p-4 rounded-full border" style={{ backgroundColor: 'rgba(0, 242, 255, 0.1)', borderColor: 'rgba(0, 242, 255, 0.2)' }}>
-                <Shield className="w-12 h-12" style={{ color: '#00f2ff' }} />
+          {/* Core Content Layout */}
+          <div className="relative h-full z-10 flex flex-col items-center justify-between py-16 px-20">
+            
+            {/* Header Section */}
+            <div className="w-full flex justify-between items-start">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-cyber-cyan/10 rounded-xl flex items-center justify-center border border-cyber-cyan/30">
+                  <ShieldCheck className="w-10 h-10 text-cyber-cyan shadow-[0_0_15px_rgba(0,242,255,0.4)]" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-black tracking-tighter text-white">ISO-SENTINEL</h4>
+                  <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-cyber-cyan">Cyber Security Academy</p>
+                </div>
+              </div>
+              
+              <div className="text-right">
+                <div className="flex items-center gap-2 justify-end text-cyber-cyan mb-1">
+                  <Globe className="w-3 h-3" />
+                  <span className="text-[10px] font-mono tracking-widest uppercase">Verified Global Achievement</span>
+                </div>
+                <div className="h-px w-32 bg-gradient-to-l from-cyber-cyan/50 to-transparent ml-auto" />
               </div>
             </div>
-            <h1 className="text-3xl font-black tracking-[0.2em] uppercase mb-2" style={{ color: '#ffffff' }}>
-              Certificate of Achievement
-            </h1>
-            <p className="font-mono text-sm tracking-widest uppercase" style={{ color: '#00f2ff' }}>
-              ISOSENTINEL CYBER SECURITY ACADEMY
-            </p>
-          </div>
 
-          {/* Recipient */}
-          <div className="text-center">
-            <p className="font-serif italic text-lg mb-4" style={{ color: '#9ca3af' }}>This is to certify that</p>
-            <h2 className="text-5xl font-bold mb-4 border-b-2 pb-2 inline-block px-12 uppercase tracking-wide" style={{ color: '#ffffff', borderBottomColor: 'rgba(0, 242, 255, 0.5)' }}>
-              {userName || 'VALUED LEARNER'}
-            </h2>
-            <p className="text-lg" style={{ color: '#9ca3af' }}>
-              has successfully completed the assessment for
-            </p>
-            <h3 className="text-2xl font-bold mt-2 uppercase tracking-wide" style={{ color: '#00f2ff' }}>
-              {courseTitle}
-            </h3>
-          </div>
-
-          {/* Appreciation Message */}
-          <div className="max-w-2xl text-center">
-             <p className="text-sm md:text-base leading-relaxed mb-6 font-medium text-gray-400">
-                Congratulations!<br />
-                You have successfully completed this Cyber Security assessment with excellent performance.<br />
-                Your dedication, consistency, and commitment to learning are highly appreciated.<br />
-                Keep advancing your Cyber Security skills and continue protecting the digital world.
-             </p>
-             <div className="flex justify-center gap-4 text-[10px] font-mono text-cyber-cyan/60 uppercase tracking-widest mt-4">
-               <span>Score: {score}%</span>
-               <span>•</span>
-               <span>Status: Verified</span>
-             </div>
-          </div>
-
-          {/* Footer Info */}
-          <div className="w-full flex justify-between items-end mt-8">
-            <div className="text-left">
-              <p className="text-[10px] font-mono uppercase tracking-tighter mb-1" style={{ color: '#6b7280' }}>Date of Completion</p>
-              <p className="text-sm font-bold" style={{ color: '#ffffff' }}>{date}</p>
-            </div>
-            
-            <div className="flex flex-col items-center">
-               <div className="flex flex-col items-center mb-2">
-                  <p className="text-xl font-serif italic mb-1" style={{ color: '#ffffff' }}>Isosentinel</p>
-                  <div className="h-[1px] w-32" style={{ backgroundColor: 'rgba(0, 242, 255, 0.5)' }} />
-                  <p className="text-[10px] font-mono mt-1 uppercase" style={{ color: '#4b5563' }}>Official Signature</p>
-               </div>
+            {/* Main Citation */}
+            <div className="text-center flex-1 flex flex-col justify-center py-8">
+              <h1 className="text-xs font-mono uppercase tracking-[0.8em] text-gray-500 mb-8">Certificate of Completion</h1>
+              
+              <p className="font-serif italic text-xl text-gray-400 mb-4">This high-priority credential is officially granted to</p>
+              
+              <h2 className="text-6xl font-black text-white uppercase tracking-tight mb-8 relative inline-block">
+                {userName || 'Security Professional'}
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50" />
+              </h2>
+              
+              <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed mb-6">
+                For demonstrating exceptional technical proficiency and successfully passing the rigorous validation assessment for the vector:
+              </p>
+              
+              <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-400 to-white uppercase mb-8 tracking-wide">
+                {courseTitle}
+              </h3>
             </div>
 
-            <div className="text-right">
-              <p className="text-[10px] font-mono uppercase tracking-tighter mb-1" style={{ color: '#6b7280' }}>Certificate ID</p>
-              <p className="text-sm font-bold" style={{ color: '#00f2ff' }}>{certificateId}</p>
+            {/* Bottom Section - Seal & Meta */}
+            <div className="w-full flex justify-between items-end">
+              {/* Left: Validation Meta */}
+              <div className="space-y-4">
+                <div>
+                  <p className="text-[9px] font-mono uppercase text-gray-500 tracking-widest">Protocol Date</p>
+                  <p className="text-sm font-bold text-white">{date}</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono uppercase text-gray-500 tracking-widest">Assessment Score</p>
+                  <p className="text-sm font-bold text-cyber-cyan">{score}% Proficiency Achieved</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono uppercase text-gray-500 tracking-widest">Certificate Identity</p>
+                  <p className="text-xs font-mono text-white/60">{certificateId}</p>
+                </div>
+              </div>
+
+              {/* Center: Premium Seal */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute w-40 h-40 bg-cyber-cyan/5 rounded-full animate-pulse" />
+                <div className="w-32 h-32 rounded-full border-4 border-double border-cyber-cyan/40 flex flex-col items-center justify-center bg-gray-900 shadow-[0_0_30px_rgba(0,242,255,0.1)] relative">
+                  <Award className="w-12 h-12 text-cyber-cyan mb-1" />
+                  <span className="text-[8px] font-black uppercase tracking-tighter text-white">Verified</span>
+                  <span className="text-[6px] font-mono uppercase text-gray-500">Cyber Sentinel</span>
+                  
+                  {/* Decorative teeth of seal */}
+                  <div className="absolute inset-0 border-2 border-dashed border-cyber-cyan/20 rounded-full animate-spin-slow" />
+                </div>
+              </div>
+
+              {/* Right: Signature */}
+              <div className="text-center group">
+                <div className="relative mb-2">
+                  <Fingerprint className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 text-cyber-cyan/10 group-hover:text-cyber-cyan/20 transition-colors" />
+                  <p className="text-3xl font-serif italic text-white line-signature">Isosentinel</p>
+                </div>
+                <div className="h-0.5 w-48 bg-gradient-to-r from-transparent via-cyber-cyan/50 to-transparent mx-auto" />
+                <p className="text-[9px] font-mono uppercase text-gray-500 mt-2 tracking-widest">Director of Academy Intelligence</p>
+              </div>
             </div>
+          </div>
+
+          {/* Background Binary Texture */}
+          <div className="absolute inset-0 font-mono text-[8px] text-white/[0.02] flex flex-wrap gap-4 p-8 pointer-events-none select-none break-all leading-tight">
+            {Array.from({ length: 40 }).map((_, i) => (
+              <span key={i}>01011001 01001111 01010101 01010010 01010011 01000101 01001100 01000110 </span>
+            ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Action Buttons */}
-      <div className="mt-8 flex flex-wrap justify-center gap-4 no-print relative z-20">
+      {/* Control Panel */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="mt-12 flex flex-wrap justify-center gap-6 no-print"
+      >
         <button 
           onClick={handleDownload}
           disabled={isDownloading}
-          className="flex items-center gap-2 px-8 py-4 bg-cyber-cyan text-cyber-bg font-bold rounded-xl hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all group disabled:opacity-70"
+          className="relative group overflow-hidden px-10 py-5 bg-cyber-bg border border-cyber-cyan/30 rounded-2xl transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
         >
-          {isDownloading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" /> 
-          )}
-          {isDownloading ? 'GENERATING PDF...' : 'DOWNLOAD CERTIFICATE'}
+          <div className="absolute inset-0 bg-cyber-cyan/10 group-hover:bg-cyber-cyan/20 transition-colors" />
+          <div className="relative flex items-center gap-3">
+            {isDownloading ? (
+              <Loader2 className="w-6 h-6 animate-spin text-cyber-cyan" />
+            ) : (
+              <Download className="w-6 h-6 text-cyber-cyan group-hover:-translate-y-1 transition-transform" /> 
+            )}
+            <div className="text-left">
+              <span className="block text-xs font-mono text-cyber-cyan/60 uppercase leading-none mb-1">Export Result</span>
+              <span className="block text-sm font-black text-white uppercase tracking-wider">
+                {isDownloading ? 'Encrypting PDF...' : 'Download Certificate'}
+              </span>
+            </div>
+          </div>
         </button>
+
         <button 
           onClick={handlePrint}
-          className="flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-all font-mono text-xs"
+          className="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-3 group hover:bg-white/10 transition-all font-mono"
         >
-          <Printer className="w-5 h-5" /> PRINT
+          <Printer className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+          <div className="text-left">
+            <span className="block text-xs text-gray-500 uppercase leading-none mb-1">Local Copy</span>
+            <span className="block text-sm font-bold text-white uppercase">Print System</span>
+          </div>
         </button>
-      </div>
+      </motion.div>
+
+      <style>{`
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 12s linear infinite;
+        }
+        .line-signature {
+          text-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+        @media print {
+          .no-print { display: none !important; }
+          .certificate-wrapper { margin: 0; padding: 0; }
+          body { background: white !important; }
+        }
+      `}</style>
     </div>
   );
 };
+
