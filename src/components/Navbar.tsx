@@ -5,11 +5,12 @@ import { Shield, Menu, X, ChevronRight } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 
 const NAV_LINKS = [
-  { name: 'Nyumbani', path: '/' },
+  { name: 'Home', path: '/' },
+  { name: 'Dashboard', path: '/dashboard' },
   { name: 'Notes', path: '/notes' },
   { name: 'Tutorial Videos', path: '/videos' },
   { name: 'Tutorial Qns', path: '/quizzes' },
-  { name: 'Mawasiliano', path: '/contact' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 export const Navbar = () => {
@@ -61,12 +62,6 @@ export const Navbar = () => {
               )}
             </Link>
           ))}
-          <Link 
-            to="/admin" 
-            className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold hover:bg-cyber-cyan hover:text-cyber-bg transition-all duration-300"
-          >
-            ADMIN LOG
-          </Link>
         </div>
 
         {/* Mobile Toggle */}

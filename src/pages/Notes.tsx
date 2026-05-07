@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Network, Terminal, Shield, Lock, Search, ArrowRight, FileQuestion, BookOpen, CheckCircle, Award } from 'lucide-react';
+import { Network, Terminal, Shield, Lock, Search, ArrowRight, FileQuestion, BookOpen, CheckCircle, Award, Scale } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { UserProgress } from '@/src/components/UserProgress';
@@ -12,6 +12,7 @@ const ICONS = {
   Terminal: Terminal,
   Shield: Shield,
   Lock: Lock,
+  Scale: Scale,
 };
 
 export const Notes = () => {

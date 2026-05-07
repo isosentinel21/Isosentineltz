@@ -11,7 +11,7 @@ import { NotesDetail } from './pages/NotesDetail';
 import { Videos } from './pages/Videos';
 import { Quizzes } from './pages/Quizzes';
 import { Contact } from './pages/Contact';
-import { Admin } from './pages/Admin';
+import { Dashboard } from './pages/Dashboard';
 import { triggerWelcomeConfetti } from './lib/celebration';
 import { ContentProvider } from './context/ContentContext';
 
@@ -55,12 +55,12 @@ export default function App() {
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/notes" element={<Notes />} />
                 <Route path="/notes/:id" element={<NotesDetail />} />
                 <Route path="/videos" element={<Videos />} />
                 <Route path="/quizzes" element={<Quizzes />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<Home />} />
               </Routes>
             </div>

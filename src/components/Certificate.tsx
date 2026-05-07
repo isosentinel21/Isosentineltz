@@ -119,11 +119,17 @@ export const Certificate = ({ userName, courseTitle, score, date, certificateId 
 
           {/* Appreciation Message */}
           <div className="max-w-2xl text-center">
-             <p className="text-sm leading-relaxed mb-6 font-medium" style={{ color: '#6b7280' }}>
-                Congratulations! You have successfully completed this Cyber Security assessment with an excellent performance of <span style={{ color: '#00f2ff', fontWeight: 'bold' }}>{score}%</span>. 
-                Your dedication and commitment to learning are highly appreciated. 
+             <p className="text-sm md:text-base leading-relaxed mb-6 font-medium text-gray-400">
+                Congratulations!<br />
+                You have successfully completed this Cyber Security assessment with excellent performance.<br />
+                Your dedication, consistency, and commitment to learning are highly appreciated.<br />
                 Keep advancing your Cyber Security skills and continue protecting the digital world.
              </p>
+             <div className="flex justify-center gap-4 text-[10px] font-mono text-cyber-cyan/60 uppercase tracking-widest mt-4">
+               <span>Score: {score}%</span>
+               <span>•</span>
+               <span>Status: Verified</span>
+             </div>
           </div>
 
           {/* Footer Info */}

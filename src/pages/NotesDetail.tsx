@@ -143,12 +143,10 @@ export const NotesDetail = () => {
           </article>
 
           {/* Knowledge Assessment Section */}
-          {topic.questions && (
-            <Assessment 
-              topicTitle={topic.title} 
-              questions={topic.questions} 
-            />
-          )}
+          <Assessment 
+            topicTitle={topic.title} 
+            lessonId={topic.id}
+          />
 
           {/* Tags Section */}
           <div className="mb-20">

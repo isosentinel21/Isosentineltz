@@ -48,6 +48,7 @@ export const CATEGORIES: TopicCategory[] = [
   { id: 'linux', title: 'Linux Mastery', description: 'Command line, sysadmin, and security hardening.', icon: 'Terminal', color: 'cyber-pink' },
   { id: 'hacking', title: 'Ethical Hacking', description: 'Vulnerability assessment and pentesting.', icon: 'Shield', color: 'cyber-cyan' },
   { id: 'defense', title: 'Cyber Defense', description: 'Incident response, SOC, and threat hunting.', icon: 'Lock', color: 'cyber-pink' },
+  { id: 'cyber-laws', title: 'Cyber Laws', description: 'Legal frameworks, regulations, and ethics in the digital world.', icon: 'Scale', color: 'cyber-cyan' },
 ];
 
 export const NOTE_TOPICS: NoteTopic[] = [
@@ -250,6 +251,69 @@ The methodology follows these steps:
 3. Gaining Access
 4. Maintaining Access
 5. Covering Tracks
+`
+  },
+  {
+    id: 'cyber-laws-intro',
+    categoryId: 'cyber-laws',
+    title: 'Introduction to Cyber Laws',
+    description: 'Learn about the legal aspects of cybersecurity and international regulations.',
+    icon: 'Scale',
+    tags: ['CyberLaw', 'Ethics', 'Legal', 'Privacy'],
+    questions: [
+      {
+        question: 'Sheria ya Makosa ya Mitandao (Cybercrimes Act) inashughulika na nini hasa?',
+        options: ['Kutengeneza tovuti', 'Vitendo vya kihalifu vinavyofanywa kupitia teknolojia', 'Kununua kompyuta mpya', 'Kuongeza kasi ya intaneti'],
+        correctAnswer: 1,
+        explanation: 'Sheria hii inalenga kuzuia na kuadhibu makosa yanayofanywa kwa kutumia mifumo ya kompyuta.'
+      },
+      {
+        question: 'CIA Triad ni mhimili wa usalama wa habari. C inasimama badala ya nini?',
+        options: ['Control', 'Confidentiality', 'Correction', 'Communication'],
+        correctAnswer: 1,
+        explanation: 'Confidentiality (Siri) inahakikisha kuwa taarifa zinaonekana na watu walioruhusiwa pekee.'
+      },
+      {
+        question: 'Ni ipi kati ya hizi ni kosa la mtandao kisheria?',
+        options: ['Kusoma habari mtandaoni', 'Kutuma barua pepe ya kiofisi', 'Wizi wa utambulisho (Identity Theft)', 'Kupakua programu halali'],
+        correctAnswer: 2,
+        explanation: 'Kuiba utambulisho wa mtu mwingine ili kufanya uhalifu ni kosa kubwa la mtandao.'
+      },
+      {
+        question: 'Lengo kuu la Sheria ya Ulinzi wa Data Binafsi ni nini?',
+        options: ['Kuuza data za watumiaji', 'Kulinda faragha na usalama wa taarifa za watu', 'Kuzuia watu wasitumie mitandao ya kijamii', 'Kupunguza matumizi ya data za simu'],
+        correctAnswer: 1,
+        explanation: 'Inahakikisha mashirika yanatunza siri za wateja wao na kutozifunua bila kibali.'
+      },
+      {
+        question: '"Phishing" ni mbinu ambayo kisheria inachukuliwa kama?',
+        options: ['Mbinu ya masoko', 'Udanganyifu (Fraud) mtandaoni', 'Utafiti wa soko', 'Huduma kwa wateja'],
+        correctAnswer: 1,
+        explanation: 'Phishing ni jaribio la kitapeli la kupata siri za watu kama nywila au namba za kadi.'
+      },
+      {
+        question: 'Ni nani anayepaswa kufuata sheria za mtandao?',
+        options: ['Wataalamu wa IT pekee', 'Vyombo vya usalama pekee', 'Kila mtu anayetumia teknolojia ya mawasiliano', 'Watu wanaomiliki tovuti pekee'],
+        correctAnswer: 2,
+        explanation: 'Sheria inamhusu kila mtumiaji wa mifumo ya mawasiliano bila kujali taaluma yake.'
+      }
+    ],
+    content: `# Sheria za Mtandao (Cyber Laws)
+
+Sheria za mtandao ni mfululizo wa kanuni na sheria zinazosimamia tabia za watu wanapotumia teknolojia ya habari na mawasiliano (TEHAMA).
+
+## Umuhimu wa Sheria za Mtandao
+1. **Kulinda Faragha**: Kuhakikisha data binafsi za watumiaji hazitumiwi vibaya.
+2. **Kuzuia Uhalifu**: Kupambana na makosa kama vile wizi wa utambulisho, utapeli, na unyanyasaji wa mtandaoni.
+3. **Usalama wa Taifa**: Kulinda miundombinu muhimu ya nchi.
+
+## Mifumo mikuu ya Sheria
+- **Sheria ya Makosa ya Mitandao (Cybercrimes Act)**: Inashughulika na vitendo vya kihalifu mtandaoni.
+- **Sheria ya Ulinzi wa Data Binafsi**: Inasimamia namna mashirika yanavyokusanya na kutunza taarifa za watu.
+
+\`\`\`bash
+# Kumbuka: Usalama unaanza na wewe!
+\`\`\`
 `
   }
 ];

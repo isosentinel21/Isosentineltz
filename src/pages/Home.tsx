@@ -1,10 +1,18 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Terminal, Shield, Cpu, Lock, ArrowRight, Zap, Globe, Users, Trophy, BookOpen, CheckCircle2, Award } from 'lucide-react';
+import { Terminal, Shield, Cpu, Lock, ArrowRight, Zap, Globe, Users, Trophy, BookOpen, CheckCircle2, Award, Scale, Network } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { useContent } from '../context/ContentContext';
 import { useProgress } from '../lib/progress';
+
+const ICONS = {
+  Network: Network,
+  Terminal: Terminal,
+  Shield: Shield,
+  Lock: Lock,
+  Scale: Scale,
+};
 
 export const Home = () => {
   const { topics, lessons } = useContent();
@@ -122,28 +130,34 @@ export const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {topics.map((cat, i) => (
-            <motion.div
-              key={cat.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group p-8 rounded-2xl glass border-white/10 hover:border-cyber-cyan/50 hover:bg-white/10 transition-all duration-300 relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-cyber-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="p-3 rounded-xl bg-white/5 inline-flex mb-6 group-hover:scale-110 group-hover:text-cyber-cyan transition-all">
-                  <Shield className="w-8 h-8" />
+          {topics.map((cat, i) => {
+            const Icon = (ICONS as any)[cat.icon] || Shield;
+            return (
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group p-8 rounded-2xl glass border-white/10 hover:border-cyber-cyan/50 hover:bg-white/10 transition-all duration-300 relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-cyber-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative z-10">
+                  <div className="p-3 rounded-xl bg-white/5 inline-flex mb-6 group-hover:scale-110 group-hover:text-cyber-cyan transition-all">
+                    <Icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 uppercase tracking-tighter">{cat.title}</h3>
+                  <p className="text-gray-400 text-sm mb-6 line-clamp-2">{cat.description}</p>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[10px] text-gray-500 font-mono tracking-widest">{lessons.filter(l => l.categoryId === cat.id).length} MODULES</span>
+                  </div>
+                  <Link to="/notes" className="flex items-center gap-2 text-xs font-bold tracking-widest text-cyber-cyan opacity-0 group-hover:opacity-100 transition-all">
+                    EXPLORE VECTOR <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{cat.title}</h3>
-                <p className="text-gray-400 text-sm mb-6">{cat.description}</p>
-                <Link to="/notes" className="flex items-center gap-2 text-xs font-bold tracking-widest text-cyber-cyan opacity-0 group-hover:opacity-100 transition-all">
-                  EXPLORE <ArrowRight className="w-3 h-3" />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 

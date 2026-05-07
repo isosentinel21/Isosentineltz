@@ -1,25 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Brain, CheckCircle2, XCircle, ChevronRight, ChevronLeft, RefreshCcw, Trophy, Award, Lock, ArrowRight } from 'lucide-react';
-import { QuizQuestionSimple } from '@/src/data/mockData';
+import { Brain, CheckCircle2, XCircle, ChevronRight, ChevronLeft, RefreshCcw, Trophy, Award, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { QuizQuestionSimple, NOTE_TOPICS } from '@/src/data/mockData';
 import { cn } from '@/src/lib/utils';
 import { Certificate } from './Certificate';
-import { markQuizPassed, markCertificateEarned } from '@/src/lib/progress';
+import { markQuizPassed, markCertificateEarned, getDeviceId } from '@/src/lib/progress';
 import { useContent } from '@/src/context/ContentContext';
 
 interface AssessmentProps {
   topicTitle: string;
-  questions: QuizQuestionSimple[];
+  lessonId: string;
+  initialQuestions?: QuizQuestionSimple[];
 }
 
-export const Assessment = ({ topicTitle, questions }: AssessmentProps) => {
+export const Assessment = ({ topicTitle, lessonId, initialQuestions }: AssessmentProps) => {
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(-1));
+  const [questions, setQuestions] = useState<QuizQuestionSimple[]>(initialQuestions || []);
+  const [answers, setAnswers] = useState<number[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [userName, setUserName] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
+  const [loading, setLoading] = useState(!initialQuestions);
+
+  useEffect(() => {
+    if (!initialQuestions && lessonId) {
+      setLoading(true);
+      // Find quiz from static data
+      const lesson = NOTE_TOPICS.find(l => l.id === lessonId);
+      if (lesson && lesson.questions) {
+        setQuestions(lesson.questions);
+        setAnswers(new Array(lesson.questions.length).fill(-1));
+      }
+      setLoading(false);
+    } else if (questions.length > 0 && answers.length === 0) {
+      setAnswers(new Array(questions.length).fill(-1));
+    }
+  }, [lessonId, initialQuestions]);
 
   const { lessons } = useContent();
   // Find the note ID for progress tracking
@@ -48,7 +66,15 @@ export const Assessment = ({ topicTitle, questions }: AssessmentProps) => {
   const handleGenerateCertificate = () => {
     setShowCertificate(true);
     const certificateId = `CERT-CS-2026-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
-    markCertificateEarned(certificateId);
+    
+    markCertificateEarned({
+      id: Math.random().toString(36).substring(2, 11),
+      certificateId: certificateId,
+      topicTitle: topicTitle,
+      score: score,
+      dateIssued: new Date().toISOString(),
+      userName: userName
+    });
   };
 
   const resetQuiz = () => {
@@ -60,6 +86,19 @@ export const Assessment = ({ topicTitle, questions }: AssessmentProps) => {
 
   const passed = score >= 70;
   const certificateId = `CERT-CS-2026-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+
+  if (loading) {
+    return (
+      <div className="mt-20 p-12 rounded-3xl glass border-white/10 text-center flex flex-col items-center justify-center">
+        <Loader2 className="w-8 h-8 text-cyber-cyan animate-spin mb-4" />
+        <p className="text-gray-500 font-mono text-xs uppercase tracking-widest">Calibrating Assessment Data...</p>
+      </div>
+    );
+  }
+
+  if (questions.length === 0) {
+    return null; // Or show "No assessment available"
+  }
 
   if (!isActive) {
     return (

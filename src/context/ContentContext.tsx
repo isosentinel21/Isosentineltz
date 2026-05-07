@@ -1,13 +1,16 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { NoteTopic, TopicCategory, NOTE_TOPICS, CATEGORIES } from '../data/mockData';
 
 interface ContentContextType {
   topics: TopicCategory[];
   lessons: NoteTopic[];
   addTopic: (topic: TopicCategory) => void;
+  updateTopic: (topic: TopicCategory) => void;
+  updateLesson: (lesson: NoteTopic) => void;
   addLesson: (lesson: NoteTopic) => void;
   deleteLesson: (lessonId: string) => void;
   deleteTopic: (topicId: string) => void;
+  isLoading: boolean;
 }
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -15,27 +18,36 @@ const ContentContext = createContext<ContentContextType | undefined>(undefined);
 export const ContentProvider = ({ children }: { children: ReactNode }) => {
   const [topics, setTopics] = useState<TopicCategory[]>(CATEGORIES);
   const [lessons, setLessons] = useState<NoteTopic[]>(NOTE_TOPICS);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const addTopic = (topic: TopicCategory) => {
-    setTopics(prev => [...prev, topic]);
-  };
+  // Auto-update counters logic if needed
+  useEffect(() => {
+    // In a static setup, topics and lessons are already in sync with mockData.ts
+    // We just ensure they are set initially
+    setTopics(CATEGORIES);
+    setLessons(NOTE_TOPICS);
+  }, []);
 
-  const addLesson = (lesson: NoteTopic) => {
-    setLessons(prev => [...prev, lesson]);
-  };
-
-  const deleteLesson = (lessonId: string) => {
-    setLessons(prev => prev.filter(l => l.id !== lessonId));
-  };
-
-  const deleteTopic = (topicId: string) => {
-    setTopics(prev => prev.filter(t => t.id !== topicId));
-    // Also cleanup lessons belonging to that topic?
-    // setLessons(prev => prev.filter(l => l.categoryId !== topicId));
-  };
+  // No-op functions to maintain compatibility with existing components
+  const addTopic = (topic: TopicCategory) => console.warn('Manual addition not supported in static mode');
+  const updateTopic = (topic: TopicCategory) => console.warn('Manual update not supported in static mode');
+  const addLesson = (lesson: NoteTopic) => console.warn('Manual addition not supported in static mode');
+  const updateLesson = (lesson: NoteTopic) => console.warn('Manual update not supported in static mode');
+  const deleteLesson = (lessonId: string) => console.warn('Manual deletion not supported in static mode');
+  const deleteTopic = (topicId: string) => console.warn('Manual deletion not supported in static mode');
 
   return (
-    <ContentContext.Provider value={{ topics, lessons, addTopic, addLesson, deleteLesson, deleteTopic }}>
+    <ContentContext.Provider value={{ 
+      topics, 
+      lessons, 
+      addTopic, 
+      updateTopic, 
+      addLesson, 
+      updateLesson, 
+      deleteLesson, 
+      deleteTopic,
+      isLoading 
+    }}>
       {children}
     </ContentContext.Provider>
   );
