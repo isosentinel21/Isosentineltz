@@ -12,6 +12,7 @@ import { Videos } from './pages/Videos';
 import { Quizzes } from './pages/Quizzes';
 import { Contact } from './pages/Contact';
 import { Dashboard } from './pages/Dashboard';
+import { CertificateViewer } from './pages/CertificateViewer';
 import { triggerWelcomeConfetti } from './lib/celebration';
 import { ContentProvider } from './context/ContentContext';
 
@@ -34,40 +35,60 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default function App() {
+  const [mounted, setMounted] = React.useState(false);
+
   useEffect(() => {
-    // Small delay to ensure styles are loaded and visual impact is better
+    setMounted(true);
     const timer = setTimeout(() => {
       triggerWelcomeConfetti();
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
+  if (!mounted) return null;
+
   return (
     <ContentProvider>
       <Router>
-        <div className="min-h-screen bg-cyber-bg text-gray-100 selection:bg-cyber-cyan selection:text-cyber-bg flex flex-col">
+        <AppContent />
+      </Router>
+    </ContentProvider>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+  const isCertificateView = location.pathname.startsWith('/certificate/');
+
+  return (
+    <div className="min-h-screen bg-cyber-bg text-gray-100 selection:bg-cyber-cyan selection:text-cyber-bg flex flex-col">
+      {!isCertificateView && (
+        <>
           <CyberGrid />
           <Navbar />
           <div className="pt-20">
             <Marquee />
           </div>
-          <PageTransition>
-            <div className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/notes" element={<Notes />} />
-                <Route path="/notes/:id" element={<NotesDetail />} />
-                <Route path="/videos" element={<Videos />} />
-                <Route path="/quizzes" element={<Quizzes />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<Home />} />
-              </Routes>
-            </div>
-          </PageTransition>
-          <Footer />
+        </>
+      )}
+      
+      <PageTransition>
+        <div className={isCertificateView ? "" : "flex-grow"}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/notes" element={<Notes />} />
+            <Route path="/notes/:id" element={<NotesDetail />} />
+            <Route path="/videos" element={<Videos />} />
+            <Route path="/quizzes" element={<Quizzes />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/certificate/:id" element={<CertificateViewer />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
         </div>
-      </Router>
-    </ContentProvider>
+      </PageTransition>
+
+      {!isCertificateView && <Footer />}
+    </div>
   );
 }

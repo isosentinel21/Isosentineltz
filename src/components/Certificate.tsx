@@ -11,9 +11,10 @@ interface CertificateProps {
   score: number;
   date: string;
   certificateId: string;
+  showControls?: boolean;
 }
 
-export const Certificate = ({ userName, courseTitle, score, date, certificateId }: CertificateProps) => {
+export const Certificate = ({ userName, courseTitle, score, date, certificateId, showControls = true }: CertificateProps) => {
   const certificateRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -189,44 +190,46 @@ export const Certificate = ({ userName, courseTitle, score, date, certificateId 
       </motion.div>
 
       {/* Control Panel */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mt-12 flex flex-wrap justify-center gap-6 no-print"
-      >
-        <button 
-          onClick={handleDownload}
-          disabled={isDownloading}
-          className="relative group overflow-hidden px-10 py-5 bg-cyber-bg border border-cyber-cyan/30 rounded-2xl transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+      {showControls && (
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 flex flex-wrap justify-center gap-6 no-print"
         >
-          <div className="absolute inset-0 bg-cyber-cyan/10 group-hover:bg-cyber-cyan/20 transition-colors" />
-          <div className="relative flex items-center gap-3">
-            {isDownloading ? (
-              <Loader2 className="w-6 h-6 animate-spin text-cyber-cyan" />
-            ) : (
-              <Download className="w-6 h-6 text-cyber-cyan group-hover:-translate-y-1 transition-transform" /> 
-            )}
-            <div className="text-left">
-              <span className="block text-xs font-mono text-cyber-cyan/60 uppercase leading-none mb-1">Export Result</span>
-              <span className="block text-sm font-black text-white uppercase tracking-wider">
-                {isDownloading ? 'Encrypting PDF...' : 'Download Certificate'}
-              </span>
+          <button 
+            onClick={handleDownload}
+            disabled={isDownloading}
+            className="relative group overflow-hidden px-10 py-5 bg-cyber-bg border border-cyber-cyan/30 rounded-2xl transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+          >
+            <div className="absolute inset-0 bg-cyber-cyan/10 group-hover:bg-cyber-cyan/20 transition-colors" />
+            <div className="relative flex items-center gap-3">
+              {isDownloading ? (
+                <Loader2 className="w-6 h-6 animate-spin text-cyber-cyan" />
+              ) : (
+                <Download className="w-6 h-6 text-cyber-cyan group-hover:-translate-y-1 transition-transform" /> 
+              )}
+              <div className="text-left">
+                <span className="block text-xs font-mono text-cyber-cyan/60 uppercase leading-none mb-1">Export Result</span>
+                <span className="block text-sm font-black text-white uppercase tracking-wider">
+                  {isDownloading ? 'Encrypting PDF...' : 'Download Certificate'}
+                </span>
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
 
-        <button 
-          onClick={handlePrint}
-          className="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-3 group hover:bg-white/10 transition-all font-mono"
-        >
-          <Printer className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
-          <div className="text-left">
-            <span className="block text-xs text-gray-500 uppercase leading-none mb-1">Local Copy</span>
-            <span className="block text-sm font-bold text-white uppercase">Print System</span>
-          </div>
-        </button>
-      </motion.div>
+          <button 
+            onClick={handlePrint}
+            className="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-3 group hover:bg-white/10 transition-all font-mono"
+          >
+            <Printer className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+            <div className="text-left">
+              <span className="block text-xs text-gray-500 uppercase leading-none mb-1">Local Copy</span>
+              <span className="block text-sm font-bold text-white uppercase">Print System</span>
+            </div>
+          </button>
+        </motion.div>
+      )}
 
       <style>{`
         @keyframes spin-slow {

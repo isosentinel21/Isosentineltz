@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Brain, CheckCircle2, XCircle, ChevronRight, ChevronLeft, RefreshCcw, Trophy, Award, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { Brain, CheckCircle2, XCircle, ChevronRight, ChevronLeft, RefreshCcw, Trophy, Award, Lock, ArrowRight, Loader2, Eye } from 'lucide-react';
 import { QuizQuestionSimple, NOTE_TOPICS } from '@/src/data/mockData';
 import { cn } from '@/src/lib/utils';
 import { Certificate } from './Certificate';
 import { markQuizPassed, markCertificateEarned, getDeviceId } from '@/src/lib/progress';
 import { useContent } from '@/src/context/ContentContext';
+import { useNavigate } from 'react-router-dom';
 
 interface AssessmentProps {
   topicTitle: string;
@@ -14,6 +15,7 @@ interface AssessmentProps {
 }
 
 export const Assessment = ({ topicTitle, lessonId, initialQuestions }: AssessmentProps) => {
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [questions, setQuestions] = useState<QuizQuestionSimple[]>(initialQuestions || []);
@@ -22,6 +24,7 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
   const [score, setScore] = useState(0);
   const [userName, setUserName] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
+  const [generatedId, setGeneratedId] = useState('');
   const [loading, setLoading] = useState(!initialQuestions);
 
   useEffect(() => {
@@ -64,8 +67,9 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
   };
 
   const handleGenerateCertificate = () => {
-    setShowCertificate(true);
     const certificateId = `CERT-CS-2026-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+    setGeneratedId(certificateId);
+    setShowCertificate(true);
     
     markCertificateEarned({
       id: Math.random().toString(36).substring(2, 11),
@@ -82,6 +86,7 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
     setAnswers(new Array(questions.length).fill(-1));
     setIsSubmitted(false);
     setShowCertificate(false);
+    setGeneratedId('');
   };
 
   const passed = score >= 70;
@@ -200,14 +205,25 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
               </motion.div>
             ) : passed && showCertificate ? (
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="pt-8 mb-4"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="space-y-6 w-full max-w-lg p-10 rounded-2xl bg-cyber-cyan/5 border border-cyber-cyan/20 shadow-[0_0_50px_rgba(0,242,255,0.1)] text-center"
               >
-                 <div className="flex items-center gap-2 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[10px] font-mono font-bold uppercase tracking-[0.4em] mx-auto w-fit shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                    Certificate Verified & Generated
-                 </div>
+                  <div className="flex justify-center mb-6">
+                    <div className="p-4 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/30">
+                      <Award className="w-12 h-12 text-cyber-cyan" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic">Credential Ready</h3>
+                  <p className="text-gray-400 text-sm mb-8">
+                    Your official ISO-SENTINEL certification has been cryptographically signed and stored in your vault.
+                  </p>
+                  <button 
+                    onClick={() => navigate(`/certificate/${generatedId}`)}
+                    className="w-full py-5 bg-cyber-cyan text-cyber-bg font-black rounded-xl hover:shadow-[0_0_40px_rgba(0,242,255,0.5)] transition-all flex items-center justify-center gap-3 uppercase tracking-wider scale-105"
+                  >
+                    <Eye className="w-6 h-6" /> VIEW OFFICIAL CREDENTIAL
+                  </button>
               </motion.div>
             ) : (
               <motion.button 
@@ -221,23 +237,6 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
             )}
           </div>
         </motion.div>
-
-        {showCertificate && (
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mt-12"
-          >
-            <Certificate 
-              userName={userName}
-              courseTitle={topicTitle}
-              score={score}
-              date={new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
-              certificateId={certificateId}
-            />
-          </motion.div>
-        )}
       </div>
     );
   }
