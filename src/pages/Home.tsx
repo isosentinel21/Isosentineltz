@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Terminal, Shield, Cpu, Lock, ArrowRight, Zap, Globe, Users, Trophy, BookOpen, CheckCircle2, Award, Scale, Network } from 'lucide-react';
+import { Terminal, Shield, Cpu, Lock, ArrowRight, Zap, Globe, Users, Trophy, BookOpen, CheckCircle2, Award, Scale, Network, Layout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { useContent } from '../context/ContentContext';
@@ -12,6 +12,8 @@ const ICONS = {
   Shield: Shield,
   Lock: Lock,
   Scale: Scale,
+  Cpu: Cpu,
+  Layout: Layout,
 };
 
 export const Home = () => {

@@ -46,6 +46,7 @@ export interface TopicCategory {
 
 export const CATEGORIES: TopicCategory[] = [
   { id: 'os', title: 'Operating System', description: 'Concepts of OS, Kernel, Shell, and process management.', icon: 'Cpu', color: 'cyber-cyan' },
+  { id: 'sd', title: 'Software Design', description: 'Software Development Life Cycle, Requirements Analysis, and Design Patterns.', icon: 'Layout', color: 'emerald-400' },
 ];
 
 export const NOTE_TOPICS: NoteTopic[] = [
@@ -1066,6 +1067,226 @@ OSs are classified based on how they process jobs and manage resources:
 *   **Network**: Central server managing client machines.
 *   **Real-Time**: Strict adherence to time deadlines.
 *   **Mobile**: Optimized for portability and wireless networks.
+`
+  },
+  {
+    id: 'software-design-sdlc',
+    categoryId: 'sd',
+    title: 'Software Design & SDLC Frameworks',
+    description: 'A practical guide to software development lifecycles, planning, and requirements analysis.',
+    icon: 'Layout',
+    tags: ['SDLC', 'Software Design', 'Planning', 'SRS', 'Categorizing Requirements'],
+    lastUpdated: '2026-05-08',
+    questions: [
+      {
+        question: "What is called the \"Architecture of Success\"?",
+        options: ["System Programming", "Software Design", "Hardware Engineering", "Marketing Strategy"],
+        correctAnswer: 1,
+        explanation: "The lesson defines software design as the \"Architecture of Success\", focusing on structured planning and analysis."
+      },
+      {
+        question: "Which SDLC phase is about answering \"Why\" and \"If\" we can build a project?",
+        options: ["Phase 4: Develop", "Phase 1: Project Planning", "Phase 6: Deploy", "Phase 3: Design"],
+        correctAnswer: 1,
+        explanation: "Phase 1 (Project Planning) is where goals are set and feasibility is determined before actual construction begins."
+      },
+      {
+        question: "What does an \"Economic\" feasibility study check?",
+        options: ["If the tools are physically available", "If the project is possible to do in time", "If the cost of building is worth the value it brings back", "If the users will find it easy to use"],
+        correctAnswer: 2,
+        explanation: "Economic feasibility compares the costs of development against the potential financial or operational value."
+      },
+      {
+        question: "Which of these is a \"Non-Functional\" requirement example?",
+        options: ["Creating a weekly report", "Logging in to the system", "The main page loading in less than 3 seconds", "Deleting a task from the list"],
+        correctAnswer: 2,
+        explanation: "Non-functional requirements describe quality attributes like performance, security, and scalability rather than specific actions."
+      },
+      {
+        question: "What is the detailed guide that helps business people and developers communicate called?",
+        options: ["Project Charter", "Risk Analysis Report", "Software Requirements Specification (SRS)", "Budget Spreadsheet"],
+        correctAnswer: 2,
+        explanation: "The SRS is described as the \"Holy Grail\" for developers, acting as the primary bridge between business needs and technical implementation."
+      },
+      {
+        question: "What are the three steps in the intellectual process of software design?",
+        options: ["Coding, Testing, Deployment", "Understanding, Planning, Preparation", "Design, Develop, Debug", "Analysis, Design, Maintenance"],
+        correctAnswer: 1,
+        explanation: "Software design involves understanding the problem, planning the solution, and preparing guides for developers."
+      },
+      {
+        question: "What is the first step you must take before doing any technical work?",
+        options: ["Start writing code", "Study the main business problem", "Choose a programming language", "Hire developers"],
+        correctAnswer: 1,
+        explanation: "Understanding the business problem is the essential first step before any technical implementation begins."
+      },
+      {
+        question: "In which SDLC phase is the plan for the system's structure (architecture) created?",
+        options: ["Phase 2: Analysis", "Phase 3: Design", "Phase 5: Testing", "Phase 7: Maintain"],
+        correctAnswer: 1,
+        explanation: "The Design phase (Phase 3) is where the architecture and system structure are planned out."
+      },
+      {
+        question: "Which SDLC phase involves gathering all the needs and requirements?",
+        options: ["Planning", "Design", "Analysis", "Develop"],
+        correctAnswer: 2,
+        explanation: "The Analysis phase is dedicated to gathering and documenting all user and system requirements."
+      },
+      {
+        question: "Why is 'Reduced Risk' mentioned as a benefit of following a structured SDLC?",
+        options: ["It makes the code faster", "Finding problems early stops the project from failing later", "It simplifies the user interface", "It eliminates the need for testing"],
+        correctAnswer: 1,
+        explanation: "Early detection of issues during planning and analysis significantly reduces the risk of project failure during later stages."
+      },
+      {
+        question: "What is the purpose of 'Risk Analysis' in the planning phase?",
+        options: ["To set the project's brand name", "To find problems early like money limits and safety risks", "To decide which colors to use", "To write the user manual"],
+        correctAnswer: 1,
+        explanation: "Risk analysis identifies potential obstacles such as financial constraints or security vulnerabilities before development begins."
+      },
+      {
+        question: "What does 'Technical' feasibility ask?",
+        options: ["Can we afford it?", "Will it be used?", "Can we build it?", "Can we build it in time?"],
+        correctAnswer: 2,
+        explanation: "Technical feasibility evaluates if the tools, skills, and systems required to build the software are available."
+      },
+      {
+        question: "What is the focus of 'Operational' feasibility?",
+        options: ["Budget tracking", "Security protocols", "Whether users will like and use the software", "Hardware specifications"],
+        correctAnswer: 2,
+        explanation: "Operational feasibility checks if the software will be integrated well into the users' workflow and if they will actually use it."
+      },
+      {
+        question: "What does 'Schedule' feasibility check?",
+        options: ["The list of developers", "If the deadlines are realistic", "The code structure", "The software logo"],
+        correctAnswer: 1,
+        explanation: "Schedule feasibility determines if the project can be completed within the specified deadlines and with available manpower."
+      },
+      {
+        question: "What do Functional Requirements describe?",
+        options: ["How the system should behave", "What the software must do (its actions)", "The cost of the project", "The speed of the network"],
+        correctAnswer: 1,
+        explanation: "Functional requirements define the specific actions or functions the software must perform."
+      },
+      {
+        question: "Which of these is a Functional Requirement?",
+        options: ["Passwords must be encrypted", "Logging in and checking the user", "The page must load in 2 seconds", "The system must handle 5000 users"],
+        correctAnswer: 1,
+        explanation: "Logging in is a specific action (function), whereas encryption and speed are quality attributes (non-functional)."
+      },
+      {
+        question: "Which of these is a Non-Functional Requirement?",
+        options: ["Making weekly reports", "Creating tasks", "Security and encryption", "Deleting user accounts"],
+        correctAnswer: 2,
+        explanation: "Security is a quality characteristic (how the system behaves) rather than a specific feature or action."
+      },
+      {
+        question: "What is the 'Project Charter'?",
+        options: ["The final code", "The official paper that gives permission to start", "A bug report", "A list of technical tools"],
+        correctAnswer: 1,
+        explanation: "The Project Charter is the formal document that authorizes the start of a project."
+      },
+      {
+        question: "Why should you avoid skipping the planning phase?",
+        options: ["It makes the code shorter", "You will have no direction and waste money/time", "It is required by the computer", "It makes the website prettier"],
+        correctAnswer: 1,
+        explanation: "Skipping planning leads to a lack of focus, scope creep, and inefficient use of resources."
+      },
+      {
+        question: "What does 'Stakeholder Alignment' ensure?",
+        options: ["That the code uses modern libraries", "That the final product is what the business and users need", "That the servers are fast", "That the team uses Git"],
+        correctAnswer: 1,
+        explanation: "It ensures that everyone involved agrees on the final result, matching it to the real business and user requirements."
+      }
+    ],
+    content: `
+# 🏗️ Software Design & SDLC Frameworks
+
+Software design is the **"Architecture of Success"**. It is a practical approach to building software by following a structured process.
+
+---
+
+## 🎨 1. Defining Software Design
+
+Software design is not just writing code; it is a three-step intellectual process:
+
+1. **Understanding**: You must study the main business problem first before you start doing any technical work.
+2. **Planning**: Drawing the **"blueprints"** (the plans) of how the software is built and deciding which parts are needed.
+3. **Preparation**: Taking difficult needs and turning them into a simple guide that developers can follow to build the software.
+
+---
+
+## 🔄 2. The 7 Phases of the SDLC
+
+The **SDLC (Software Development Life Cycle)** is a step-by-step process that ensures work is done in the right order and is of high quality.
+
+1. **Planning**: Decide on the goals and if the project is possible to do.
+2. **Analysis**: Gather all the needs and requirements.
+3. **Design**: Create the plan for the system's structure (architecture).
+4. **Develop**: This is where you write the actual computer code.
+5. **Testing**: Checking the software to make sure it works correctly.
+6. **Deploy**: Releasing the software so people can use it.
+7. **Maintain**: Fixing problems or updating the software later.
+
+---
+
+## 🌟 3. Why Structural SDLC Matters
+
+Following a structured process is important because:
+* **Reduced Risk**: Finding problems early stops the project from failing later.
+* **Optimized Costs**: Saves money by stopping people from doing the same work twice.
+* **Clear Documentation**: Ensures people can fix or change the software in the future.
+* **Stakeholder Alignment**: Makes sure the final product is what the business and users actually need.
+
+---
+
+## 🚜 4. Phase 1: Project Planning
+
+This step answers **"Why"** we are building this and **"If"** we can build it, before worrying about **"How"**.
+
+### Core Planning Activities:
+* **Scope Definition**: Setting boundaries to decide exactly what will be in the project.
+* **Stakeholders**: Finding all the people involved (users, managers, customers).
+* **Risk Analysis**: Finding problems early (money limits, safety/security, technical needs).
+
+### Feasibility Study Framework:
+1. **Technical**: "Can we build it?" (tools, skills, systems).
+2. **Economic**: "Can we afford it?" (cost vs. value).
+3. **Operational**: "Will it be used?" (usability and helpfulness).
+4. **Schedule**: "Can we build it in time?" (deadlines and manpower).
+
+---
+
+## 🌉 5. Phase 2: Requirements Analysis
+
+This step is about **"bridging"** the business needs with what can actually be built.
+
+### Categorizing Requirements:
+1. **Functional Requirements**: What the software **must do** (actions).
+   * *Examples*: Logging in, creating tasks, making reports.
+2. **Non-Functional Requirements**: How the software **should behave** (quality).
+   * *Examples*: Security (encryption), Performance (load speed), Scalability (user capacity).
+
+---
+
+## 📜 6. Core Deliverables
+* **Project Charter**: The official paper that gives permission to start.
+* **Software Requirements Specification (SRS)**: The **"Holy Grail"** for developers. A detailed guide for business and technical teams.
+
+---
+
+## 💡 7. Best Practices & Pitfalls
+* **Avoid Skipping Planning**: prevents loss of direction and wasted resources.
+* **Involve Stakeholders Early**: stops you from building something users don't want.
+* **Validate Requirements**: ensures every need is clear and testable.
+* **Prioritize Features**: focus on "Must-Have" over "Could-Have".
+
+---
+
+## 🏁 Summary
+Great software is not made by just writing code first. Controlling the **"scope"** is vital for the timeline.
+
+**Next Lesson**: System Design and Prototyping.
 `
   }
 ];
