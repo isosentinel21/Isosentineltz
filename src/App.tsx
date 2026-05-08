@@ -61,7 +61,7 @@ function AppContent() {
   const isCertificateView = location.pathname.startsWith('/certificate/');
 
   return (
-    <div className="min-h-screen bg-cyber-bg text-gray-100 selection:bg-cyber-cyan selection:text-cyber-bg flex flex-col">
+    <div className="min-h-screen text-gray-100 selection:bg-cyber-cyan selection:text-cyber-bg flex flex-col">
       {!isCertificateView && (
         <>
           <CyberGrid />

@@ -47,6 +47,27 @@ export const NotesDetail = () => {
     telegram: `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(topic.title)}`,
   };
 
+  const formatDate = (dateString?: string) => {
+    const date = dateString ? new Date(dateString) : new Date();
+    
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    
+    // Add ordinal suffix (st, nd, rd, th)
+    const suffix = (d: number) => {
+      if (d > 3 && d < 21) return 'th';
+      switch (d % 10) {
+        case 1:  return "st";
+        case 2:  return "nd";
+        case 3:  return "rd";
+        default: return "th";
+      }
+    };
+
+    return `${day}${suffix(day)} ${month} ${year}`;
+  };
+
   return (
     <div className="pt-32 pb-20 container mx-auto px-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -91,7 +112,7 @@ export const NotesDetail = () => {
             </h1>
             <div className="flex items-center justify-between pb-8 border-b border-white/5 print:mb-12">
               <div className="flex items-center gap-2 text-sm text-gray-500">
-                <Info className="w-4 h-4" /> Last updated: Oct 2023
+                <Info className="w-4 h-4" /> Last updated: {formatDate(topic.lastUpdated)}
               </div>
               <div className="flex gap-4 relative no-print">
                 <div className="relative">

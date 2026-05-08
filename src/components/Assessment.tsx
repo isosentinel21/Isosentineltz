@@ -24,6 +24,7 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
   const [score, setScore] = useState(0);
   const [userName, setUserName] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
+  const [showResultsReview, setShowResultsReview] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
   const [loading, setLoading] = useState(!initialQuestions);
 
@@ -86,6 +87,7 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
     setAnswers(new Array(questions.length).fill(-1));
     setIsSubmitted(false);
     setShowCertificate(false);
+    setShowResultsReview(false);
     setGeneratedId('');
   };
 
@@ -175,6 +177,97 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
                 : `You scored ${score}%, which is below the 70% passing threshold. Don't worry—review the material and try again to master the concepts.`}
             </p>
 
+            <div className="flex flex-wrap gap-4 justify-center mb-8">
+              {!passed && (
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={resetQuiz}
+                  className="px-8 py-4 bg-white/5 border border-white/10 text-white font-black rounded-xl hover:bg-white/10 transition-all flex items-center gap-3 uppercase tracking-widest text-xs"
+                >
+                  <RefreshCcw className="w-4 h-4" /> RETRY ASSESSMENT
+                </motion.button>
+              )}
+              
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowResultsReview(!showResultsReview)}
+                className={cn(
+                  "px-8 py-4 border font-black rounded-xl transition-all flex items-center gap-3 uppercase tracking-widest text-xs",
+                  showResultsReview 
+                    ? "bg-cyber-cyan text-cyber-bg border-cyber-cyan" 
+                    : "bg-white/5 border-white/10 text-white hover:bg-white/10"
+                )}
+              >
+                <Eye className="w-4 h-4" /> {showResultsReview ? "HIDE REVIEW" : "REVIEW ANSWERS"}
+              </motion.button>
+            </div>
+
+            <AnimatePresence>
+              {showResultsReview && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="w-full max-w-2xl mx-auto space-y-4 mb-12 overflow-hidden"
+                >
+                  <div className="text-left font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse" />
+                    Correct Answer Protocols
+                  </div>
+                  {questions.map((q, idx) => {
+                    const isCorrect = answers[idx] === q.correctAnswer;
+                    return (
+                      <motion.div 
+                        key={idx}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.05 }}
+                        className={cn(
+                          "p-6 rounded-2xl border text-left",
+                          isCorrect ? "bg-emerald-500/5 border-emerald-500/20" : "bg-red-500/5 border-red-500/20"
+                        )}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className={cn(
+                            "w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center font-black",
+                            isCorrect ? "bg-emerald-500 text-white" : "bg-red-500 text-white"
+                          )}>
+                            {idx + 1}
+                          </div>
+                          <div className="space-y-2">
+                            <h4 className="font-bold text-white leading-tight">{q.question}</h4>
+                            <div className="space-y-1">
+                              <p className={cn(
+                                "text-sm flex items-center gap-2",
+                                isCorrect ? "text-emerald-400" : "text-red-400"
+                              )}>
+                                {isCorrect ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
+                                Your Answer: {q.options[answers[idx]] || 'No answer'}
+                              </p>
+                              {!isCorrect && (
+                                <p className="text-sm text-emerald-400 flex items-center gap-2 font-bold">
+                                  <CheckCircle2 className="w-3 h-3" />
+                                  Correct Answer: {q.options[q.correctAnswer]}
+                                </p>
+                              )}
+                            </div>
+                            {q.explanation && (
+                              <div className="mt-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 text-sm text-gray-400 leading-relaxed italic">
+                                <span className="text-cyber-cyan font-bold not-italic mr-2">LOGIC:</span>
+                                {q.explanation}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {passed && !showCertificate ? (
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -225,16 +318,7 @@ export const Assessment = ({ topicTitle, lessonId, initialQuestions }: Assessmen
                     <Eye className="w-6 h-6" /> VIEW OFFICIAL CREDENTIAL
                   </button>
               </motion.div>
-            ) : (
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={resetQuiz}
-                className="px-12 py-5 bg-white/5 border border-white/10 text-white font-black rounded-xl hover:bg-white/10 transition-all flex items-center gap-3 mx-auto uppercase tracking-widest text-sm"
-              >
-                <RefreshCcw className="w-5 h-5" /> RETRY ASSESSMENT
-              </motion.button>
-            )}
+            ) : null}
           </div>
         </motion.div>
       </div>

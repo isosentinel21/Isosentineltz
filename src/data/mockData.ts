@@ -33,6 +33,7 @@ export interface NoteTopic {
   icon: string;
   tags?: string[];
   questions?: QuizQuestionSimple[];
+  lastUpdated?: string;
 }
 
 export interface TopicCategory {
@@ -55,6 +56,7 @@ export const NOTE_TOPICS: NoteTopic[] = [
     description: 'Learn what an OS is, its primary functions, types, and the booting process.',
     icon: 'Cpu',
     tags: ['OS', 'Kernel', 'Shell', 'Booting', 'Linux'],
+    lastUpdated: '2026-05-07',
     questions: [
       {
         question: 'What is an Operating System (OS)?',
@@ -274,6 +276,7 @@ Booting is the process of starting the computer.
     description: 'Learn about process address space, loading, swapping, allocation, paging, and segmentation.',
     icon: 'Cpu',
     tags: ['Memory', 'RAM', 'Paging', 'OS'],
+    lastUpdated: '2026-05-07',
     questions: [
       {
         question: 'What is Memory Management?',
@@ -427,6 +430,7 @@ As processes are moved, memory becomes "broken," leading to:
     description: 'Learn about pre-installation requirements, preparation, installation models, and post-installation tasks.',
     icon: 'Cpu',
     tags: ['OS', 'Installation', 'Hardware', 'Driver', 'Dual-Boot'],
+    lastUpdated: '2026-05-07',
     questions: [
       {
         question: 'What is the purpose of a Hardware Compatibility List (HCL)?',
@@ -642,6 +646,7 @@ The goal of the machine determines how you install it.
     description: 'Explore user/system services, CLI/GUI interfaces, system calls, spooling, and real-time systems.',
     icon: 'Cpu',
     tags: ['OS Services', 'System Calls', 'Spooling', 'Multitasking'],
+    lastUpdated: '2026-05-07',
     questions: [
       {
         question: 'What is the primary goal of Operating System services?',
@@ -842,6 +847,7 @@ Allows a computer to deal with slow devices (like printers) without slowing down
     description: 'A comprehensive guide to the computer system structure, core OS functions, and classification of operating systems.',
     icon: 'Cpu',
     tags: ['OS Functions', 'System Structure', 'Batch OS', 'RTOS', 'Distributed OS'],
+    lastUpdated: '2026-05-07',
     questions: [
       {
         question: 'What are the four main components of a computer system?',
