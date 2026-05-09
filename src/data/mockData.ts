@@ -1288,6 +1288,301 @@ Great software is not made by just writing code first. Controlling the **"scope"
 
 **Next Lesson**: System Design and Prototyping.
 `
+  },
+  {
+    id: 'project-charter-cyber-security',
+    categoryId: 'sd',
+    title: 'Project Charter: Cyber Security',
+    description: 'A structural deep dive into creating a project charter for a security incident management system.',
+    icon: 'Shield',
+    tags: ['Project Charter', 'Cyber Security', 'Management', 'Scope', 'Stakeholders'],
+    lastUpdated: '2026-05-09',
+    questions: [
+      {
+        question: "What is the primary goal of the web-based system described in the charter?",
+        options: ["Selling security software", "Tracking security incidents and vulnerabilities", "Creating a new social network", "Hosting a gaming server"],
+        correctAnswer: 1,
+        explanation: "The Project Overview states the goal is to build a system that helps a company keep track of security problems (incidents and vulnerabilities)."
+      },
+      {
+        question: "Which of the following is considered 'Out of Scope' in this charter?",
+        options: ["User authentication", "Incident reports", "A mobile phone app", "Basic dashboard"],
+        correctAnswer: 2,
+        explanation: "Section 4 (Scope) explicitly lists a mobile phone app/sending SMS as out of scope."
+      },
+      {
+        question: "Which stakeholder is described as the expert who investigates and fixes security problems?",
+        options: ["Team Leader", "SOC Analyst", "Security Officer", "System Administrator"],
+        correctAnswer: 1,
+        explanation: "The SOC Analyst is defined as the expert who investigates and fixes problems."
+      },
+      {
+        question: "What risk is described as 'The project getting too big because the rules weren't clear'?",
+        options: ["Short time", "Scope creep", "Data vulnerabilities", "Technical debt"],
+        correctAnswer: 1,
+        explanation: "Scope creep refers to the uncontrolled growth of project requirements due to unclear boundaries."
+      },
+      {
+        question: "Which of these is listed as a 'Constraint' (limit) for the project?",
+        options: ["Users know how to use computers", "Programming tools are ready", "Limited number of people (team size)", "Encrypted passwords"],
+        correctAnswer: 2,
+        explanation: "Constraints are limits, such as limited time, team size, or equipment."
+      },
+      {
+        question: "What does the 'Problem Statement' explain in the Project Charter?",
+        options: ["The color scheme of the app", "Why the project is needed", "The list of all employees", "The final budget"],
+        correctAnswer: 1,
+        explanation: "The Problem Statement explains the necessity of the project, highlighting issues like slow reactions to threats in small companies."
+      },
+      {
+        question: "According to the Project Objectives, where should all security reporting be placed?",
+        options: ["In multiple local files", "In one central place", "On social media", "In physical notebooks"],
+        correctAnswer: 1,
+        explanation: "One of the key objectives is to centralize all security reporting into one single platform for better management."
+      },
+      {
+        question: "Which of these is a 'Success Criterion' for the system's performance?",
+        options: ["It has a dark mode", "It is easy to use and works fast (responsive)", "It uses a specific web browser", "It has more than 50 pages"],
+        correctAnswer: 1,
+        explanation: "A project is successful if the system is responsive, meaning it is fast and easy for the user to interact with."
+      },
+      {
+        question: "Which stakeholder is responsible for managing the computer systems?",
+        options: ["SOC Analyst", "Security Officer", "System Administrator", "User"],
+        correctAnswer: 2,
+        explanation: "The System Administrator is the person designated to set up and manage the computer system infrastructure."
+      },
+      {
+        question: "What is an 'Assumption' mentioned regarding the people using the system?",
+        options: ["They are all security experts", "They know how to use a basic computer", "They will only use mobile phones", "They speak 10 different languages"],
+        correctAnswer: 1,
+        explanation: "The charter assumes that the users have basic computer literacy, which is a starting 'fact' believed to be true."
+      }
+    ],
+    content: `
+# 🛡️ Project Charter: Cyber Security System
+
+The Project Charter is the official document that gives formal permission to start a project. It defines the boundaries, goals, and key players.
+
+---
+
+## 📋 1. Project Overview
+This is a short summary of the whole project.
+* **Goal**: Build a web-based system (website).
+* **Purpose**: Help a company keep track of security problems (incidents and vulnerabilities).
+* **Functionality**: Users report problems, assign severity levels, track fixes, and verify completion.
+
+---
+
+## ❓ 2. Problem Statement
+**Why is this project needed?**
+Small companies often lack a central place to manage security issues. Without a system, they:
+* React slowly to threats.
+* Lose track of critical vulnerabilities.
+* Cannot see the "big picture" of their security posture.
+
+---
+
+## 🎯 3. Project Objectives
+Specific goals the project aims to achieve:
+* **Centralization**: Put all security reporting in one central place.
+* **Visibility**: See the real-time status of problems (e.g., "Is it fixed yet?").
+* **Task Management**: Assign specific tasks to security experts (**Analysts**).
+* **Monitoring**: Create a simple "dashboard" with charts or lists.
+* **Accountability**: Make the team faster and more responsible.
+
+---
+
+## 🏗️ 4. Scope (Setting Boundaries)
+
+### ✅ In Scope (What we WILL build):
+* **User Authentication**: Secure login and logout.
+* **Incident Reports**: Creation and management of security tickets.
+* **Status Updates**: Changing the progress/workflow of a problem.
+* **Assigning Tasks**: Directing problems to specific experts.
+* **Basic Dashboard**: A main home screen to see the overview.
+
+### ❌ Out of Scope (What we WILL NOT build):
+* Real-time "threat intelligence" (external live feeds).
+* Automatic emails or SMS notifications.
+* A mobile phone application.
+* Advanced data mathematics or complex reporting.
+
+---
+
+## 👥 5. Stakeholders
+The people involved or affected:
+* **Security Officer**: Person in charge of the security rules.
+* **SOC Analyst**: The expert who investigates and fixes the problems.
+* **Team Leader**: The boss who assigns work and monitors progress.
+* **System Administrator**: The person who manages the computer systems.
+* **Developers**: The team writing the code for the system.
+
+---
+
+## ✅ 6. Success Criteria
+How we know we have succeeded:
+* The login system works perfectly.
+* Users can successfully create, view, and update security incidents.
+* Tasks can be assigned correctly to analysts.
+* The system is fast, easy to use, and responsive.
+* Project is finished within the deadline.
+
+---
+
+## ⚠️ 7. Risks
+The "bad things" the team must watch out for:
+* **Scope Creep**: The project growing too large due to unclear rules.
+* **Unclear Requirements**: Confusion about what exactly needs to be built.
+* **Time Pressure**: Not having enough time to finish all features.
+* **Data Vulnerabilities**: The risk of the system itself being hacked.
+* **Feature Overload**: Trying to do too much at once.
+
+---
+
+## ⚙️ 8. Assumptions & Constraints
+
+### Assumptions (Beliefs starting out):
+* Users have basic computer literacy.
+* Development tools (like the **Django** framework) are ready and available.
+
+### Constraints (Limits):
+* **Time**: Limited amount of time for delivery.
+* **Resources**: Limited team size and infrastructure (equipment).
+`
+  },
+  {
+    id: 'project-roadmap',
+    categoryId: 'sd',
+    title: 'Project Roadmap',
+    description: 'A guide to project timelines, milestones, and planning using Gantt charts.',
+    icon: 'Network',
+    tags: ['Roadmap', 'Milestones', 'Timeline', 'Gantt Chart', 'SDLC Schedule'],
+    lastUpdated: '2026-05-09',
+    questions: [
+      {
+        question: "What is a Gantt Chart?",
+        options: ["A list of user passwords", "A visual calendar that uses bars to show task timing", "A type of programming language", "A security report"],
+        correctAnswer: 1,
+        explanation: "A Gantt chart is a visual tool that uses bars to show when each task starts and ends."
+      },
+      {
+        question: "According to the schedule, what is the deliverable for Week 1 (Project Planning)?",
+        options: ["SRS Document", "Design Diagrams", "Project Charter", "Live System"],
+        correctAnswer: 2,
+        explanation: "The roadmap shows that at the end of Week 1, the deliverable is the Project Charter."
+      },
+      {
+        question: "In which week should the 'SRS Document' be approved?",
+        options: ["Week 1", "Week 2", "Week 3", "Week 8"],
+        correctAnswer: 1,
+        explanation: "Week 2 is dedicated to getting the Requirements Approved, resulting in the SRS Document."
+      },
+      {
+        question: "What is the result of Week 6 (Developing Core Features)?",
+        options: ["User Manual", "Working Prototype", "Final Deployment", "Risk Analysis Report"],
+        correctAnswer: 1,
+        explanation: "Week 6 focuses on core feature development, leading to a basic version of the software called a Working Prototype."
+      },
+      {
+        question: "Which team role is responsible for ensuring everything happens on time?",
+        options: ["Business Analyst", "Developer", "Project Manager", "QA Tester"],
+        correctAnswer: 2,
+        explanation: "The Project Manager is the leader who makes sure the project follows the schedule."
+      },
+      {
+        question: "What does 'Mitigation' mean in project management?",
+        options: ["Ignoring the problem", "Having a plan to stop or reduce a problem", "Increasing the project budget", "Hiring more developers"],
+        correctAnswer: 1,
+        explanation: "Mitigation refers to strategies planned to prevent risks or minimize their impact."
+      },
+      {
+        question: "What is the result of Week 7 in the project timeline?",
+        options: ["Working Prototype", "Test Report", "Live System", "Marketing Plan"],
+        correctAnswer: 1,
+        explanation: "Week 7 is for Testing, and the result is a Test Report confirming the software works correctly."
+      },
+      {
+        question: "If there is 'not enough time' (Time Constraints), what is the plan?",
+        options: ["Wait for more time", "Focus on the most important (core) features first", "Cancel the project", "Skip testing"],
+        correctAnswer: 1,
+        explanation: "Focusing on core features first is a mitigation strategy for limited time."
+      },
+      {
+        question: "Who is the person that talks to users and writes down exactly what they need?",
+        options: ["QA Tester", "Business Analyst", "System Administrator", "Security Officer"],
+        correctAnswer: 1,
+        explanation: "The Business Analyst captures user requirements and communicates them to the technical team."
+      },
+      {
+        question: "What is the final result of Week 8?",
+        options: ["Design Diagrams", "SRS Document", "Live System", "Project Charter"],
+        correctAnswer: 2,
+        explanation: "Week 8 marks the end of deployment, resulting in the Live System for users."
+      }
+    ],
+    content: `
+# 🗺️ Project Roadmap
+
+The **Project Roadmap** is a high-level guide that shows the path, the SDLC schedule, milestones, and the timeline for the entire project.
+
+---
+
+## 📅 1. SDLC Timeline & Gantt Chart
+
+A **Gantt Chart** is a visual calendar that uses bars to show when each task starts and when it ends. It helps the team see how long each part of the SDLC will take at a glance.
+
+---
+
+## 🎯 2. Key Milestones
+
+Milestones are important **"finish lines"** for different parts of the project. A typical 8-week schedule includes:
+
+*   **Week 1**: Finish Project Planning.
+    *   *Result (Deliverable)*: **Project Charter**.
+*   **Week 2**: Get the Requirements Approved.
+    *   *Result*: **SRS Document** (detailed instructions).
+*   **Week 3**: Finish System Management & Design.
+    *   *Result*: **Design Diagrams** (maps of the system).
+*   **Week 6**: Finish Developing Core Features.
+    *   *Result*: **Working Prototype** (basic version of the software).
+*   **Week 7**: Finish Testing.
+    *   *Result*: **Test Report** showing the software works correctly.
+*   **Week 8**: Finish Deployment.
+    *   *Result*: **Live System** that users can actually use.
+
+---
+
+## 👥 3. Team Roles & Responsibilities
+
+Each person on the team has a specific job to ensure the project's success:
+
+*   **Project Manager**: The leader who makes sure everything happens on time.
+*   **Business Analyst**: The person who talks to users and writes down exactly what they need.
+*   **Developer**: The person who builds the actual functions of the system using code.
+*   **QA Tester**: The person who tests the system to find mistakes and ensure quality.
+*   **System Administrator**: The person who puts the system online and keeps it running.
+
+---
+
+## ⚠️ 4. Risks & Mitigation Strategies
+
+**"Mitigation"** means having a plan to stop a problem or make it less bad.
+
+*   **Risk: Scope Creep** (project growing too big).
+    *   *Plan*: Stick strictly to the rules written in the scope.
+*   **Risk: Time Constraints** (not enough time).
+    *   *Plan*: Focus on the most important (**core**) features first.
+*   **Risk: Technical Challenges** (difficult coding problems).
+    *   *Plan*: Use tools and frameworks that are already proven to work well.
+*   **Risk: Security Vulnerabilities** (risk of being hacked).
+    *   *Plan*: Use safe and **"secure"** ways of writing code from the very beginning.
+
+---
+
+## 🏁 Summary
+A roadmap keeps everyone on the same page and ensures that the project moves from a simple idea to a live, working system within the planned time.
+`
   }
 ];
 
